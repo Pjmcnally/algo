@@ -1,7 +1,7 @@
 import sys
 from timeit import timeit
 
-array = [0]
+array = range(10000)
 
 # ==============================
 # untested functions
@@ -52,40 +52,65 @@ def line_1_o1_mod(n):
         return 1
 
 
-def test_num(num):
-    if (linear_while(num) == recursive(num) == line_2_o1(num) ==
-       line_1_o1(num) == line_1_o1_mod(num)):
+def growth_dict(num):
+    res_dict = {}
+    for val in range(num + 1):
+        total = res_dict.get(val - 1, 0)
+        if val % 2 == 0:
+            res_dict[val] = total + 1
+        else:
+            res_dict[val] = total * 2
+    return res_dict
+
+
+def pre_test(funcs, nums):
+    results = []
+
+    for func in funcs:
+        results.append(test_wrap(func, nums))
+
+    if all(x == results[0] for x in results):
         print("All fuctions generating same answer")
     else:
         print("Some function(s) not generating same answer")
 
-test_num(950)
+
+def test_wrap(function, array):
+    results = []
+
+    if function == growth_dict:
+        num = max(array)
+        res = growth_dict(num)
+        for x in array:
+            results.append(res[x])
+        return results
+    else:
+        for val in array:
+            results.append(function(val))
+
+        return results
 
 
 def test(func):
     val = timeit(
-        "array_test({}, array)".format(func.__name__),
-        setup="from __main__ import array_test, array, {}".format(func.__name__),
-        # number=1
+        "test_wrap({}, array)".format(func.__name__),
+        setup="from __main__ import test_wrap, array, {}".format(func.__name__),  # noqa
+        number=3
     )
     return val
-
-
-def array_test(function, array):
-    results = []
-    for val in array:
-        results.append(function(val))
-
-    return results
 
 
 def main():
     func_list = [
         linear_while,
+        growth_dict,
         line_2_o1,
         line_1_o1,
         line_1_o1_mod
     ]
+
+    test_array = [0, 1, 10, 100, 1000]
+    pre_test(func_list, test_array)
 
     for x in func_list:
         val = test(x)
