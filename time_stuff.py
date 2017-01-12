@@ -24,7 +24,7 @@ def map_func(string):
 def gen(string):
     return (int(x) for x in string.split(" "))
 
-num_array = list(range(10))
+num_array = list(range(5))
 str_array = [str(x) for x in num_array]
 num_str = " ".join(str_array)
 
