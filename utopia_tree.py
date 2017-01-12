@@ -1,5 +1,7 @@
+import sys
 from timeit import timeit
-array = range(10)
+
+array = [10000]
 
 
 def linear_while(array):
@@ -15,8 +17,6 @@ def linear_while(array):
     for val in array:
         growth_calc(val)
 
-    return True
-
 
 def recursive(array):
     def growth_calc(n):
@@ -30,36 +30,63 @@ def recursive(array):
     for val in array:
         growth_calc(val)
 
-    return True
-
 
 def line_2_o1(array):
-    pass
+    def growth_calc(n):
+        if n == 0:
+            return 1
+        if n % 2 == 0:
+            return (2 ** ((n // 2) + 1)) - 1
+        else:
+            return (2 ** ((n + 1) // 2 + 1)) - 2
+
+    for val in array:
+        growth_calc(val)
 
 
 def line_1_o1(array):
     def growth_calc(n):
         mod = n % 2
-        return int((2 ** ((n + (mod)) / 2 + 1)) - 1 - (mod))
+        return (2 ** ((n + mod) // 2 + 1)) - 1 - (mod)
 
     for val in array:
         growth_calc(val)
 
-    return True
+
+def line_1_o1_mod(array):
+    def growth_calc(n):
+        if n:
+            mod = n % 2
+            return (2 ** ((n + mod) // 2 + 1)) - 1 - (mod)
+        else:
+            return 1
+
+    for val in array:
+        growth_calc(val)
 
 
 def test(name):
-    val = timeit("{}".format(name + "(array)"),
-                 setup="from __main__ import {}, array".format(name),
-                 number=1000)
+    val = timeit(
+            "{}".format(name + "(array)"),
+            setup="from __main__ import {}, array".format(name),
+            number=1)
     return name, val
 
 
 def main():
-    func_list = ["linear_while", "recursive", "line_2_o1", "line_1_o1"]
+    org_rec_limit = sys.getrecursionlimit()
+    print(org_rec_limit)
+    sys.setrecursionlimit(15000)
+    new_rec_limit = sys.getrecursionlimit()
+    print(new_rec_limit)
+
+    func_list = ["linear_while", "recursive", "line_2_o1", "line_1_o1",
+                 "line_1_o1_mod"]
     for x in func_list:
         name, val = test(x)
-        print("{} took {}".format(name, val))
+        print("{:<15} took   {:<20}".format(name, val))
 
 
-main()
+# main()
+
+if ()
