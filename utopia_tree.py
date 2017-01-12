@@ -116,6 +116,6 @@ def main():
         print("{:<15} took   {:e}".format(x.__name__, val))
 
 
-array = [100] * 10000
+array = [1] * 10000
 
 main()
