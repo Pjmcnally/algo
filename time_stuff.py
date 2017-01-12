@@ -1,38 +1,40 @@
 from timeit import timeit
 
 
-def tup(array):
-    tuple((x**2 for x in array))
+def tup(string):
+    tuple((int(x) for x in string.split(" ")))
 
 
-def comp(array):
-    return [x**2 for x in array]
+def comp(string):
+    return [int(x) for x in string.split(" ")]
 
 
-def for_loop(array):
+def for_loop(string):
     results = []
-    for x in array:
-        results.append(x**2)
+    for x in string.split(" "):
+        results.append(int(x))
 
     return results
 
 
-def map_func(array):
-    return list(map(lambda x: x**2, array))
+def map_func(string):
+    return list(map(int, string.split(" ")))
 
 
-def gen(array):
-    return list(x**2 for x in array)
+def gen(string):
+    return (int(x) for x in string.split(" "))
 
-num_array = range(100)
+num_array = list(range(101))
+str_array = [str(x) for x in num_array]
+num_str = " ".join(str_array)
 
 
 def main():
-    print("comp took ", timeit("comp(num_array)", setup="from __main__ import comp, num_array"))
-    print("loop took ", timeit("for_loop(num_array)", setup="from __main__ import for_loop, num_array"))
-    print("map  took ", timeit("map_func(num_array)", setup="from __main__ import map_func, num_array"))
-    print("gen  took ", timeit("gen(num_array)", setup="from __main__ import gen, num_array"))
-    print("tup  took ", timeit("tup(num_array)", setup="from __main__ import tup, num_array"))
+    print("comp took ", timeit("comp(num_str)", setup="from __main__ import comp, num_str"))
+    print("loop took ", timeit("for_loop(num_str)", setup="from __main__ import for_loop, num_str"))
+    print("map  took ", timeit("map_func(num_str)", setup="from __main__ import map_func, num_str"))
+    print("gen  took ", timeit("gen(num_str)", setup="from __main__ import gen, num_str"))
+    print("tup  took ", timeit("tup(num_str)", setup="from __main__ import tup, num_str"))
 
 if __name__ == '__main__':
     main()
