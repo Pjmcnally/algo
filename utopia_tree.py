@@ -1,8 +1,6 @@
 import sys
 from timeit import timeit
 
-array = [0]
-
 # ==============================
 # untested functions
 
@@ -30,7 +28,7 @@ def linear_while(n):
     return height
 
 
-def line_2_o1(n):
+def o1_2_line(n):
     if n == 0:
         return 1
     if n % 2 == 0:
@@ -39,12 +37,12 @@ def line_2_o1(n):
         return (2 ** ((n + 1) // 2 + 1)) - 2
 
 
-def line_1_o1(n):
+def o1_1_line(n):
     mod = n % 2
     return (2 ** ((n + mod) // 2 + 1)) - 1 - (mod)
 
 
-def line_1_o1_mod(n):
+def o1_1_line_mod(n):
     if n:
         mod = n % 2
         return (2 ** ((n + mod) // 2 + 1)) - 1 - (mod)
@@ -70,9 +68,9 @@ def pre_test(funcs, nums):
         results.append(test_wrap(func, nums))
 
     if all(x == results[0] for x in results):
-        print("All fuctions generating same answer")
+        print("All tests passed!")
     else:
-        print("Some function(s) not generating same answer")
+        print("Tests failed!")
 
 
 def test_wrap(function, array):
@@ -96,6 +94,7 @@ def test(func):
         "test_wrap({}, array)".format(func.__name__),
         setup="from __main__ import test_wrap, array, {}".format(func.__name__),  # noqa
         number=3
+        # number=1000000  # default
     )
     return val
 
@@ -104,9 +103,9 @@ def main():
     func_list = [
         linear_while,
         growth_dict,
-        line_2_o1,
-        line_1_o1,
-        line_1_o1_mod
+        o1_2_line,
+        o1_1_line,
+        o1_1_line_mod
     ]
 
     test_array = [0, 1, 10, 100, 1000]
@@ -116,5 +115,7 @@ def main():
         val = test(x)
         print("{:<15} took   {:e}".format(x.__name__, val))
 
+
+array = [100] * 10000
 
 main()
