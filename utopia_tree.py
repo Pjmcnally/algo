@@ -1,7 +1,7 @@
 import sys
 from timeit import timeit
 
-array = range(10000)
+array = [0]
 
 # ==============================
 # untested functions
