@@ -1,5 +1,6 @@
 def get_stuff():
-    tot_stu, req_stu = [int(x) for x in input().strip().split(" ")]
+    students = input("Please enter total and required students ")
+    tot_stu, req_stu = [int(x) for x in students.strip().split(" ")]
     stu_time = [int(x) for x in input().strip().split(" ")]
 
     on_time = sum(x <= 0 for x in stu_time)
@@ -10,8 +11,8 @@ def get_stuff():
         return "YES"
     
 def main():
-    test_num = int(input())
-    for x in range(test_num):
+    test = input("Please enter number of tests ")
+    for x in range(int(test)):
         print(get_stuff())
         
 main()
