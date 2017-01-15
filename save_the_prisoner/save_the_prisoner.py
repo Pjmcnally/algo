@@ -21,15 +21,3 @@ def input():
 with open("save_the_prisoner_test_0.txt", "r") as f:
     print("\nSave the Prisoner test 1")
     main()
-
-# with open("save_the_prisoner_test_2.txt", "r") as f:
-#     print("\nGrid search test 4")
-#     main()
-
-# with open("save_the_prisoner_test_3.txt", "r") as f:
-#     print("\nGrid search test 5")
-#     main()
-
-# with open("save_the_prisoner_test_4.txt", "r") as f:
-#     print("\nGrid search test 7")
-#     main()
