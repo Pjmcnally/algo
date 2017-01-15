@@ -7,12 +7,9 @@ def main():
 def find_prisoner():
     prisoners, sweets, p_id = (int(x) for x in input().strip().split(' '))
 
-    final_id = (p_id + sweets - 1) % (prisoners)
+    poisoned = (p_id + sweets - 1 - 1) % (prisoners) + 1
 
-    if final_id:
-        return final_id
-    else:
-        return prisoners
+    return poisoned
 
 
 def input():
