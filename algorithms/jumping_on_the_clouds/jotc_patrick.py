@@ -7,13 +7,13 @@ def main():
     
     index = 0
     
-    while True:
+    while energy >= 0:
         index = (index + jump_dist) % num_clouds
         energy -= (1 + clouds[index]*2)
         
         if index == 0:
             return energy
-        elif energy < 0:  # shouldn't happen but safeguard against infinite loop
-            return index
+
+    return "ran out of energy" #  Shouldn't happen 
         
 print(main())
