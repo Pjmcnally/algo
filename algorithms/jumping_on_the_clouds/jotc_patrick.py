@@ -13,5 +13,7 @@ def main():
         
         if index == 0:
             return energy
+        elif energy < 0:  # shouldn't happen but safeguard against infinite loop
+            return index
         
 print(main())
