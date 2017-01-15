@@ -9,7 +9,7 @@ def main():
     
     while energy >= 0:
         index = (index + jump_dist) % num_clouds
-        energy -= (1 + clouds[index]*2)
+        energy -= (1 + clouds[index] * 2)
         
         if index == 0:
             return energy
