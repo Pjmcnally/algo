@@ -10,9 +10,7 @@ def find_digits(num):
         digit = num % 10
         num = num // 10
         
-        if digit == 0:
-            continue
-        elif org_num % digit == 0:
+        if digit != 0 and org_num % digit == 0:
             count += 1
             
     return count
