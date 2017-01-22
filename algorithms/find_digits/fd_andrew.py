@@ -18,13 +18,12 @@ for a0 in range(t):
 def main(n):
     count = 0
     n_mod = n
-    while n_mod // 10 != 0:
+    while n_mod > 0:
         digit = n_mod % 10
         n_mod = n_mod // 10
-        print(digit)
-        if digit != 0:   
-            if n % digit == 0:
-                count += 1
+        if digit != 0 and n % digit == 0:
+            count += 1
+            
     return count
     
     
