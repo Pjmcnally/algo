@@ -2,7 +2,7 @@ from random import shuffle
 from bubblesort import raw_bubblesort, shrinking_bubblesort, adaptive_bubblesort
 
 def main():
-    arr = list(range(100))
+    arr = list(range(1000))
     shuffle(arr)
 
     a_1 = arr[:]
@@ -13,7 +13,7 @@ def main():
     shrinking_bubblesort(a_2)
     adaptive_bubblesort(a_3)
 
-    if (a_1 == a_2 == a_3):
+    if (a_1 == a_2 == a_3 == sorted(arr)):
         print("YAY")
 
 if __name__ == '__main__':
