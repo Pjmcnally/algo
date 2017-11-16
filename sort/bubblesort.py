@@ -16,6 +16,21 @@ def raw_bubblesort(arr):
             if arr[i] > arr[i + 1]:
                 arr[i], arr[i + 1] = arr[i + 1], arr[i]
 
+def shrinking_bubblesort(arr):
+    """
+    This version of bubble sort is slightly optimized.
+
+    It will only loop over the unsorted section of the list.  After each pass
+    we can assume the final element of that pass is sorted and we do not need
+    to examine it again.
+    """
+    l = len(arr) - 1
+    for j in range(l, 0, -1):
+        for i in range(0, j):
+            if arr[i] > arr[i + 1]:
+                arr[i], arr[i + 1] = arr[i + 1], arr[i]
+
+
 def bubblesort(arr):
     swapped = False
     j = len(arr) - 2
