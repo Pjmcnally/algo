@@ -1,25 +1,19 @@
-# Bubble sort is a terrible sorting algoright and should only be used for
-# learning and mocking
+"""
+Bubble sort is a simple comparative sorting algorithm.
 
+It is very inefficient and should basically never be used.  Other simple sorts
+(like insertion or select) should almost alwasy be prefered over bubble.
+"""
 
-# This is completely unoptimized.
-# It will loo
 def raw_bubblesort(arr):
-    i = 0
-    while i < len(arr) - 1:
-        if arr[i] > arr[i + 1]:
-            arr[i], arr[i + 1] = arr[i + 1], arr[i]
-        i += 1
-
-    return arr
-
-def main():
-    arr = [5, 4, 3, 2, 1]
-    sort = raw_bubblesort(arr[:])
-    print(sort)
-
-main()
-
+    """
+    This version of bubble sort is completely unoptimized.
+    It will fully loop over the list (even the "sorted" section every time)
+    """
+    for elem in arr:
+        for i in range(len(arr) - 1):
+            if arr[i] > arr[i + 1]:
+                arr[i], arr[i + 1] = arr[i + 1], arr[i]
 
 def bubblesort(arr):
     swapped = False
@@ -32,3 +26,11 @@ def bubblesort(arr):
 
         j -= 1
     return arr
+
+def main():
+    arr = [5, 4, 3, 2, 1]
+    raw_bubblesort(arr)
+    print(arr)
+
+if __name__ == '__main__':
+    main()
