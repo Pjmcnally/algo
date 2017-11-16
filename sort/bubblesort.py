@@ -24,8 +24,9 @@ def shrinking_bubblesort(arr):
     we can assume the final element of that pass is sorted and we do not need
     to examine it again.
     """
-    l = len(arr) - 1
-    for j in range(l, 0, -1):
+
+    # j is our shriking upper bound. i counts from 0 to j. Swap if necessary.
+    for j in range(len(arr) - 1, 0, -1):
         for i in range(0, j):
             if arr[i] > arr[i + 1]:
                 arr[i], arr[i + 1] = arr[i + 1], arr[i]
