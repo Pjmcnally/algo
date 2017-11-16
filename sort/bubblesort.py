@@ -10,8 +10,9 @@ def raw_bubblesort(arr):
     This version of bubble sort is completely unoptimized.
     It will fully loop over the list (even the "sorted" section every time)
     """
-    for elem in arr:
-        for i in range(len(arr) - 1):
+    l = len(arr) - 1
+    for loop in range(l):
+        for i in range(l):
             if arr[i] > arr[i + 1]:
                 arr[i], arr[i + 1] = arr[i + 1], arr[i]
 
