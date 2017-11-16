@@ -32,22 +32,16 @@ def shrinking_bubblesort(arr):
                 arr[i], arr[i + 1] = arr[i + 1], arr[i]
 
 
-def bubblesort(arr):
-    swapped = False
-    j = len(arr) - 2
-    while not swapped:
-        for i, val in enumerate(arr[:j]):
-            if val > arr[i + 1]:
+def adaptive_bubblesort(arr):
+    j = len(arr) - 1  # set upper bound
+
+    # j is our adaptive upper bound. i counts from 0 to j. Swap if necessary.
+    while j > 0:
+        new_j = 0  # Assume new upperbound in 0 (assume list is sorted)
+        for i in range(0, j):
+            if arr[i] > arr[i + 1]:
                 arr[i], arr[i + 1] = arr[i + 1], arr[i]
-                swapped = True
+                new_j = i  # when a swap is made update new upper bound
+        j = new_j
 
-        j -= 1
     return arr
-
-def main():
-    arr = [5, 4, 3, 2, 1]
-    raw_bubblesort(arr)
-    print(arr)
-
-if __name__ == '__main__':
-    main()
