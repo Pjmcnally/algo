@@ -9,20 +9,35 @@ import bubblesort
 # TODO: make timeit work
 
 def main():
-    sorts = inspect.getmembers(bubblesort, inspect.isfunction)
+    module = bubblesort
+    sorts = inspect.getmembers(module, inspect.isfunction)
+    arr_types = ["srt", "cls", "rnd", "rev"]
+    list_size = 1000
+    runs = 5
 
-    for name, sort in sorts:
-        mysetup = "from bubblesort import {0}; from lists import {1}; arr = {2}[:]".format(name, "r_100, s_100", "s_100")
-        code = "{}(arr)".format(name)
-        runs = 10000
-
-        time = timeit.timeit(
+    for sort_name, sort_func in sorts:
+        print("\nTesting {} sorting method:".format(sort_name))
+        for arr in arr_types:
+            mysetup = (
+                # Import, sort and array.
+                "from {mod} import {sort};"
+                "from lists import {arr}_{num};"
+                # Make shallow copy of array each setup or it will become sorted
+                "arr = {arr}_{num}[:];".format(
+                    mod=module.__name__,
+                    sort=sort_name,
+                    arr=arr,
+                    num=list_size,
+                )
+            )
+            # Use shallow copy arr created in setup above
+            code = "{sort}(arr)".format(sort=sort_name)
+            time = timeit.timeit(
                 setup=mysetup,
                 stmt=code,
                 number=runs,
             )
-        print("{} took {:.5f}s per run".format(name, time/runs))
-
+            print("Sorting {} took {:.5f}s per run".format(arr, time/runs))
 
 if __name__ == '__main__':
     main()
