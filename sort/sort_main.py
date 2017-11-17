@@ -1,18 +1,41 @@
-from timeit import timeit
+import timeit
+import inspect
+
+import bubblesort
+
 from random import shuffle
-from bubblesort import raw_bubblesort, shrinking_bubblesort, adaptive_bubblesort
+
 
 def main():
-    sorts = [raw_bubblesort, shrinking_bubblesort, adaptive_bubblesort]
+    sorts = inspect.getmembers(bubblesort, inspect.isfunction)
 
-    for sort in sorts:
-        time = timeit(
-            setup="from bubblesort import {}; from random import shuffle; arr = list(range(100)); shuffle(arr)".format(sort.__name__),
-            stmt="{}(arr)".format(sort.__name__),
-            number=100
-        )
-        print(time)
+    o_arr = list(range(1000))
+    s_arr = o_arr[:]
+    shuffle(s_arr)
+
+    for name, sort in sorts:
+        t_arr = s_arr[:]
+        sort(t_arr)
+
+        if t_arr == o_arr:
+            print("{} worked".format(name))
 
 
 if __name__ == '__main__':
     main()
+
+
+"""
+def temp():
+    mysetup = "print(sorts)"
+        # from bubblesort import {}; from random_lists import {}".format(sort.__name__)
+        code = "{}([1, 2, 3])".format(sort.__name__)
+
+    time = timeit.timeit(
+            setup=mysetup,
+            stmt=code,
+            number=100,
+            globals=globals()
+        )
+        print(time)
+"""
