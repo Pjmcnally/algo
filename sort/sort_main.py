@@ -1,18 +1,18 @@
+from timeit import timeit
 from random import shuffle
 from bubblesort import raw_bubblesort, shrinking_bubblesort, adaptive_bubblesort
 
 def main():
     sorts = [raw_bubblesort, shrinking_bubblesort, adaptive_bubblesort]
-    o_arr = list(range(1000))
-    s_arr = o_arr[:]
-    shuffle(s_arr)
 
     for sort in sorts:
-        t_arr = s_arr[:]
-        sort(t_arr)
+        time = timeit(
+            setup="from bubblesort import {}; from random import shuffle; arr = list(range(100)); shuffle(arr)".format(sort.__name__),
+            stmt="{}(arr)".format(sort.__name__),
+            number=100
+        )
+        print(time)
 
-        if t_arr == o_arr:
-            print("{} worked".format(sort.__name__))
 
 if __name__ == '__main__':
     main()
