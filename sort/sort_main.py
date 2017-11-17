@@ -1,7 +1,9 @@
 import timeit
 import inspect
 
+import lists
 import bubblesort
+
 
 from random import shuffle
 
@@ -12,15 +14,11 @@ from random import shuffle
 def main():
     sorts = inspect.getmembers(bubblesort, inspect.isfunction)
 
-    o_arr = list(range(1000))
-    s_arr = o_arr[:]
-    shuffle(s_arr)
-
     for name, sort in sorts:
-        t_arr = s_arr[:]
-        sort(t_arr)
+        temp_arr = lists.rand[:]
+        sort(temp_arr)
 
-        if t_arr == o_arr:
+        if temp_arr == lists.sort:
             print("{} worked".format(name))
 
 
