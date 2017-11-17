@@ -2,7 +2,8 @@ from random import shuffle, sample, randint
 import lists
 
 def make_close(arr):
-    """ This function is entirely made up by me.  All of the numbers are guesses.
+    """
+    This function is entirely made up by me.  All of the numbers are guesses.
     I have done some testing and it seems to perform as I want.d
 
     Right now it makes lists where about 20% of the numbers are not where they
@@ -11,7 +12,8 @@ def make_close(arr):
     As lists get longer the max dist climbs as some number can be moved more
     than once.
 
-    This will fail freqently with small lists.  I recomend use where len >= 100"""
+    This will fail freqently with small lists.  I recomend use where len >= 100
+    """
 
     temp = arr[:]
     rand_limit = 10
@@ -42,8 +44,10 @@ def gen_lists(file, num):
         f.write("rnd_{} = {}\n".format(num, rnd_list))
 
 def check_cls(arr):
-    """ This function checks my close list generating function to see
-    what kind of results I am getting """
+    """
+    This function checks my close list generating function to see
+    what kind of results I am getting.
+    """
 
     num_off = 0
     off = []
