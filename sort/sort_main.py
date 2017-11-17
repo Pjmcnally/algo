@@ -1,4 +1,5 @@
 import timeit
+import cProfile
 import inspect
 
 import lists
@@ -15,28 +16,17 @@ def main():
     sorts = inspect.getmembers(bubblesort, inspect.isfunction)
 
     for name, sort in sorts:
-        temp_arr = lists.rand[:]
-        sort(temp_arr)
+        mysetup = "from bubblesort import {0}; from lists import {1}; arr = {2}[:]".format(name, "r_100, s_100", "s_100")
+        code = "{}(arr)".format(name)
+        runs = 10000
 
-        if temp_arr == lists.sort:
-            print("{} worked".format(name))
+        time = timeit.timeit(
+                setup=mysetup,
+                stmt=code,
+                number=runs,
+            )
+        print("{} took {:.5f}s per run".format(name, time/runs))
 
 
 if __name__ == '__main__':
     main()
-
-
-"""
-def temp():
-    mysetup = "print(sorts)"
-        # from bubblesort import {}; from random_lists import {}".format(sort.__name__)
-        code = "{}([1, 2, 3])".format(sort.__name__)
-
-    time = timeit.timeit(
-            setup=mysetup,
-            stmt=code,
-            number=100,
-            globals=globals()
-        )
-        print(time)
-"""
