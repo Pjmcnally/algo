@@ -2,19 +2,17 @@ from random import shuffle
 from bubblesort import raw_bubblesort, shrinking_bubblesort, adaptive_bubblesort
 
 def main():
-    arr = list(range(1000))
-    shuffle(arr)
+    sorts = [raw_bubblesort, shrinking_bubblesort, adaptive_bubblesort]
+    o_arr = list(range(1000))
+    s_arr = o_arr[:]
+    shuffle(s_arr)
 
-    a_1 = arr[:]
-    a_2 = arr[:]
-    a_3 = arr[:]
+    for sort in sorts:
+        t_arr = s_arr[:]
+        sort(t_arr)
 
-    raw_bubblesort(a_1)
-    shrinking_bubblesort(a_2)
-    adaptive_bubblesort(a_3)
-
-    if (a_1 == a_2 == a_3 == sorted(arr)):
-        print("YAY")
+        if t_arr == o_arr:
+            print("{} worked".format(sort.__name__))
 
 if __name__ == '__main__':
     main()
