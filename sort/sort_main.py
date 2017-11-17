@@ -5,6 +5,9 @@ import bubblesort
 
 from random import shuffle
 
+# TODO: generate lists in random_lists module to test against the same list
+# TODO: modularize maine so I can specify module or list to test
+# TODO: make timeit work
 
 def main():
     sorts = inspect.getmembers(bubblesort, inspect.isfunction)
