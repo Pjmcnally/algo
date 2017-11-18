@@ -44,7 +44,6 @@ def main():
 
     # Parse argument and run test with provided arguements
     args = parser.parse_args()
-    print(args.type)
     test(args.mod_name, args.list_size, args.repeat, args.type)
 
     return None
