@@ -40,8 +40,8 @@ def test(mod_name, list_size, repeat, arr_types):
     if arr_types == "all":
         arr_types = ["srt", "cls", "rnd", "rev"]
 
-    print("\nRunning test on list of length {}".format(list_size))
-    print("\nRepeating each sort {} times".format(repeat))
+    print("\nRunning test on {} module.".format(mod_name))
+    print("Using list of length {}. Repeating test {} times.".format(list_size, repeat))
 
     # sorts is a list of tuples.  Each tuple contians func name and func value.
     for sort_name, sort_func in sorts:
@@ -58,7 +58,7 @@ def test(mod_name, list_size, repeat, arr_types):
                 )
             )
             # Create shallow copy of list or it will be sorted after first run
-            # This does introduce a bit of overhead but is necessary
+            # This does introduce a bit of overhead to each test but is necessary
             code = "{sort}({arr}_{num}[:])".format(
                 sort=sort_name,
                 arr=arr,
