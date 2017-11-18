@@ -49,12 +49,14 @@ def main():
 
     # Parse argument and run test with provided arguements
     args = parser.parse_args()
+    if args.repeat <= 0:
+        parser.error("Minimum repeat value is 1")
 
     beg = now()
     test(args.mod_name, args.list_size, args.repeat, args.type)
     end = now()
 
-    print("\nTotal process took {}".format(timedelta(seconds=end-beg)))
+    print("\nTotal process took {}".format(str(timedelta(seconds=end-beg))))
     return None
 
 def test(mod_name, list_size, repeat, arr):
