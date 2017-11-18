@@ -7,7 +7,7 @@ import sys
 # TODO: modularize maine so I can specify module or list to test
 # TODO: make timeit work
 
-def main(mod_name, list_size=1000, runs=10):
+def main(mod_name, list_size=1000, runs=10, arr_types=["srt", "cls", "rnd", "rev"]):
     try:
         module = importlib.import_module(mod_name)
         sorts = inspect.getmembers(module, inspect.isfunction)
@@ -15,8 +15,7 @@ def main(mod_name, list_size=1000, runs=10):
         print("\nModule name not found.  Please enter valid module name")
         return
 
-    arr_types = ["srt", "cls", "rnd", "rev"]
-
+    # sorts is a list of tuples.  Each tuple contians func name and func value.
     for sort_name, sort_func in sorts:
         print("\nTesting {} sorting method:".format(sort_name))
         for arr in arr_types:
@@ -26,7 +25,7 @@ def main(mod_name, list_size=1000, runs=10):
                 "from lists import {arr}_{num};"
                 # Make shallow copy of array each setup or it will become sorted
                 "arr = {arr}_{num}[:];".format(
-                    mod=module.__name__,
+                    mod=mod_name,
                     sort=sort_name,
                     arr=arr,
                     num=list_size,
