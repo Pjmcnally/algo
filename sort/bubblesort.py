@@ -90,23 +90,23 @@ def simple_cocktailSort(arr):
 
     This is an in-place sort.
     """
-    # Assume list is unsorted, set start and end
+    # Assume list is unsorted, set beginning and end
     swapped = True
-    start = 0
+    beg = 0
     end = len(arr) - 1
 
-    while (swapped==True):
+    while swapped==True:
         # Assume list is sorted until swap is made
         swapped = False
 
-        # Loop from left to right same as the bubble sort
-        for i in range (start, end):
-            if (arr[i] > arr[i + 1]) :
+        # Loop over list from beginning to end, swap if necessary
+        for i in range (beg, end):
+            if arr[i] > arr[i + 1] :
                 arr[i], arr[i + 1] = arr[i + 1], arr[i]
                 swapped=True
 
         # If nothing moved, then array is sorted.
-        if (swapped==False):
+        if swapped==False:
             break
 
         # Assume list is sorted until swap is made
@@ -116,13 +116,13 @@ def simple_cocktailSort(arr):
         end = end - 1
 
         # Loop from right to left same as bubble sort
-        for i in range(end, start,-1):
-            if (arr[i] < arr[i - 1]):
+        for i in range(end, beg, -1):
+            if arr[i] < arr[i - 1]:
                 arr[i], arr[i - 1] = arr[i - 1], arr[i]
                 swapped = True
 
-        # Increase start as we know one more element is sorted
-        start = start + 1
+        # Increase beg as we know one more element is sorted
+        beg = beg + 1
 
     return None
 
@@ -141,21 +141,27 @@ def adaptive_cocktail(arr):
 
     This is an in-place sort.
     """
-    end = len(arr) - 1
+    # Set beginning and end
+    l = len(arr) - 1
     beg = 0
+    end = l
 
     while beg < end:
+        # Assume list is sorted until swap is made
         new_end = 0
+
+        # Loop over list from beginning to end, swap if necessary
         for i in range(beg, end):
             if arr[i] > arr[i + 1]:
                 arr[i], arr[i + 1] = arr[i + 1], arr[i]
                 new_end = i  # when a swap is made update new upper bound
         end = new_end
 
+        # if the end is smaller than beginning then list is sorted.
         if end <= beg:
             break
 
-        new_beg = len(arr) - 1
+        new_beg = l
         for i in range(end, beg, -1):
             if arr[i] < arr[i - 1]:
                 arr[i], arr[i - 1] = arr[i - 1], arr[i]
