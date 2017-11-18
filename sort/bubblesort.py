@@ -57,7 +57,7 @@ def adaptive_bubblesort(arr):
     This version of bubble sort is significantly optimized.
 
     At the begining of each pass we assume the rest of the list is sorted and
-    note (in variable new_j) the position of the last swap.  All elements after
+    notes (in variable new_j) the position of the last swap.  All elements after
     that position are sorted and do not need to be considered.
 
     This can significantly increase speed on data that is already or almost
@@ -76,5 +76,52 @@ def adaptive_bubblesort(arr):
                 arr[i], arr[i + 1] = arr[i + 1], arr[i]
                 new_j = i  # when a swap is made update new upper bound
         j = new_j
+
+    return None
+
+def simple_cocktailSort(arr):
+    """
+    This version of bubble sort works back and forth instead of always starting
+    at the beginning.
+
+    It operates like shrinking_bubblesort and will only assume 1 elem sorted per
+    pass.  However, if no swaps are made it will stop sorting as the list is
+    sorted.
+
+    This is an in-place sort.
+    """
+    # Assume list is unsorted, set start and end
+    swapped = True
+    start = 0
+    end = len(arr) - 1
+
+    while (swapped==True):
+        # Assume list is sorted until swap is made
+        swapped = False
+
+        # Loop from left to right same as the bubble sort
+        for i in range (start, end):
+            if (arr[i] > arr[i + 1]) :
+                arr[i], arr[i + 1] = arr[i + 1], arr[i]
+                swapped=True
+
+        # If nothing moved, then array is sorted.
+        if (swapped==False):
+            break
+
+        # Assume list is sorted until swap is made
+        swapped = False
+
+        # Reduce the end as we know one more element is sorted
+        end = end - 1
+
+        # Loop from right to left same as bubble sort
+        for i in range(end, start,-1):
+            if (arr[i] < arr[i - 1]):
+                arr[i], arr[i - 1] = arr[i - 1], arr[i]
+                swapped = True
+
+        # Increase start as we know one more element is sorted
+        start = start + 1
 
     return None
