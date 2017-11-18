@@ -7,7 +7,16 @@ import sys
 # TODO: modularize maine so I can specify module or list to test
 # TODO: make timeit work
 
-def main(mod_name, list_size=1000, runs=10, arr_types=["srt", "cls", "rnd", "rev"]):
+def main():
+    if len(sys.argv) == 1:
+        print("\nArguments required.  Please provide a search algorithm to test.")
+        return
+    else:
+        test(sys.argv[1])
+    return None
+
+
+def test(mod_name, list_size=1000, runs=10, arr_types=["srt", "cls", "rnd", "rev"]):
     try:
         module = importlib.import_module(mod_name)
         sorts = inspect.getmembers(module, inspect.isfunction)
@@ -41,4 +50,4 @@ def main(mod_name, list_size=1000, runs=10, arr_types=["srt", "cls", "rnd", "rev
             print("Sorting {} took {:.5f}s per run".format(arr, time/runs))
 
 if __name__ == '__main__':
-    main("bubblesort")
+    main()
