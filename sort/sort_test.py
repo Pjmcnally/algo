@@ -1,10 +1,15 @@
-import argparse
 import inspect
-import importlib
-import timeit
+
+from argparse import ArgumentParser
+from datetime import timedelta
+from importlib import import_module
+from time import time as now
+from timeit import timeit
+
+
 
 def main():
-    parser = argparse.ArgumentParser(description="Test sorting module displaying timed results.")
+    parser = ArgumentParser(description="Test sorting module displaying timed results.")
 
     # Add required argument "module name"
     parser.add_argument(
@@ -44,14 +49,17 @@ def main():
 
     # Parse argument and run test with provided arguements
     args = parser.parse_args()
+
+    beg = now()
     test(args.mod_name, args.list_size, args.repeat, args.type)
+    end = now()
 
+    print("\nTotal process took {}".format(timedelta(seconds=end-beg)))
     return None
-
 
 def test(mod_name, list_size, repeat, arr):
     try:
-        module = importlib.import_module(mod_name)
+        module = import_module(mod_name)
         sorts = inspect.getmembers(module, inspect.isfunction)
     except:
         print("\nModule name not found.  Please enter valid module name")
@@ -96,7 +104,7 @@ def test(mod_name, list_size, repeat, arr):
                 arr=arr,
                 num=list_size
             )
-            time = timeit.timeit(
+            time = timeit(
                 setup=mysetup,
                 stmt=code,
                 number=repeat,
