@@ -8,11 +8,24 @@ import sys
 # TODO: make timeit work
 
 def main():
+    # This whole function is super kludgy and needs significant work.
+    # Right now it works for me so I am leaving it alone.
     if len(sys.argv) == 1:
-        print("\nArguments required.  Please provide a search algorithm to test.")
+        print("\nArguments required.  Please provide a module to test.")
         return
-    else:
+    elif len(sys.argv) == 2:
         test(sys.argv[1])
+    elif len(sys.argv) == 5:
+        mod_name = sys.argv[1]
+        try:
+            list_size = int(sys.argv[2])
+            runs = int(sys.argv[3])
+        except:
+            print("\nlist_size and runs must both be ints.")
+            return
+        arr_types = sys.argv[4].split(' ')
+
+        test(mod_name, list_size, runs, arr_types)
     return None
 
 
