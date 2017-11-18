@@ -48,12 +48,13 @@ def main():
 
     # Parse argument and run test with provided arguements
     args = parser.parse_args()
+    print(args.type)
     test(args.mod_name, args.list_size, args.repeat, args.type)
 
     return None
 
 
-def test(mod_name, list_size, repeat, arr_types):
+def test(mod_name, list_size, repeat, arr):
     try:
         module = importlib.import_module(mod_name)
         sorts = inspect.getmembers(module, inspect.isfunction)
@@ -61,11 +62,23 @@ def test(mod_name, list_size, repeat, arr_types):
         print("\nModule name not found.  Please enter valid module name")
         return
 
-    if arr_types == "all":
+    if arr == "all":
         arr_types = ["srt", "cls", "rnd", "rev"]
+    else:
+        arr_types = []
+        arr_types.append(arr)
 
-    print("\nRunning test on {} module.".format(mod_name))
-    print("Using list of length {}. Repeating test {} times.".format(list_size, repeat))
+    print(
+        "\nRunning test on {mod} module."
+        "\nTest is using {type} list types"
+        "\nTest is using list of length {size:,}."
+        "\nEach test is repeated {rep:,} times.".format(
+            mod=mod_name,
+            size=list_size,
+            rep=repeat,
+            type=arr
+        )
+    )
 
     # sorts is a list of tuples.  Each tuple contians func name and func value.
     for sort_name, sort_func in sorts:
