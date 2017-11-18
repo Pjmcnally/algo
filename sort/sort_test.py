@@ -1,19 +1,16 @@
-import timeit
 import inspect
-
-import lists
-import bubblesort
+import importlib
+import timeit
+import sys
 
 # TODO: generate lists in random_lists module to test against the same list
 # TODO: modularize maine so I can specify module or list to test
 # TODO: make timeit work
 
-def main():
-    module = bubblesort
+def main(mod_name, list_size=1000, runs=10):
+    module = importlib.import_module(mod_name)
     sorts = inspect.getmembers(module, inspect.isfunction)
     arr_types = ["srt", "cls", "rnd", "rev"]
-    list_size = 1000
-    runs = 5
 
     for sort_name, sort_func in sorts:
         print("\nTesting {} sorting method:".format(sort_name))
@@ -40,4 +37,4 @@ def main():
             print("Sorting {} took {:.5f}s per run".format(arr, time/runs))
 
 if __name__ == '__main__':
-    main()
+    main("bubblesort")
