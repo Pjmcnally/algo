@@ -8,8 +8,13 @@ import sys
 # TODO: make timeit work
 
 def main(mod_name, list_size=1000, runs=10):
-    module = importlib.import_module(mod_name)
-    sorts = inspect.getmembers(module, inspect.isfunction)
+    try:
+        module = importlib.import_module(mod_name)
+        sorts = inspect.getmembers(module, inspect.isfunction)
+    except:
+        print("\nModule name not found.  Please enter valid module name")
+        return
+
     arr_types = ["srt", "cls", "rnd", "rev"]
 
     for sort_name, sort_func in sorts:
