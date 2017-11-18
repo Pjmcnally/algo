@@ -125,3 +125,41 @@ def simple_cocktailSort(arr):
         start = start + 1
 
     return None
+
+def adaptive_cocktail(arr):
+    """
+    This version of bubble sort works back and forth instead of always starting
+    at the beginning.
+
+    It, like adaptive_bubblesort, will expand the "sorted parts of the list
+    depending on the swaps made.  At the beginning of each pass it assumes the
+    rest of the list is sorted.  Once a swap is made that position is saved. At
+    the end of the pass all elements after that position are sorted.
+
+    This can significantly increase speed on data that is already or almost
+    sorted.
+
+    This is an in-place sort.
+    """
+    end = len(arr) - 1
+    beg = 0
+
+    while beg < end:
+        new_end = 0
+        for i in range(beg, end):
+            if arr[i] > arr[i + 1]:
+                arr[i], arr[i + 1] = arr[i + 1], arr[i]
+                new_end = i  # when a swap is made update new upper bound
+        end = new_end
+
+        if end <= beg:
+            break
+
+        new_beg = len(arr) - 1
+        for i in range(end, beg, -1):
+            if arr[i] < arr[i - 1]:
+                arr[i], arr[i - 1] = arr[i - 1], arr[i]
+                new_beg = i  # when a swap is made update new upper bound
+        beg = new_beg
+
+    return None
