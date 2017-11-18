@@ -20,6 +20,45 @@ significantly speed up bubble sort espescially on data that is already or almost
 sorted.
 """
 
+""" Testing Results:
+Running test on bubblesort module.
+Test is using all list types
+Test is using list of length 10,000.
+Each test is repeated 10 times.
+
+Testing raw_bubblesort sorting method:
+Sorting srt took 12.18884s per run
+Sorting cls took 12.02357s per run
+Sorting rnd took 17.90868s per run
+Sorting rev took 23.74025s per run
+
+Testing shrinking_bubblesort sorting method:
+Sorting srt took 6.01435s per run
+Sorting cls took 6.03654s per run
+Sorting rnd took 11.71965s per run
+Sorting rev took 17.72745s per run
+
+Testing adaptive_bubblesort sorting method:
+Sorting srt took 0.00122s per run
+Sorting cls took 0.01712s per run
+Sorting rnd took 12.16969s per run
+Sorting rev took 18.31845s per run
+
+Testing simple_cocktailSort sorting method:
+Sorting srt took 0.00124s per run
+Sorting cls took 0.00968s per run
+Sorting rnd took 10.23367s per run
+Sorting rev took 18.03637s per run
+
+Testing adaptive_cocktail sorting method:
+Sorting srt took 0.00125s per run
+Sorting cls took 0.00809s per run
+Sorting rnd took 9.55495s per run
+Sorting rev took 17.80244s per run
+
+Total process took 0:32:27.271671
+"""
+
 def raw_bubblesort(arr):
     """
     This implementation of bubble sort is completely unoptimized. It will fully
