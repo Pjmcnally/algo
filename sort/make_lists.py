@@ -69,4 +69,5 @@ def main():
     for x in [lists.cls_100, lists.cls_1000, lists.cls_10000, lists.cls_100000]:
         check_cls(x)
 
-main()
+if __name__ == '__main__':
+    main()
