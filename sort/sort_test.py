@@ -29,13 +29,19 @@ def main():
     return None
 
 
-def test(mod_name, list_size=1000, runs=10, arr_types=["srt", "cls", "rnd", "rev"]):
+def test(mod_name, list_size, repeat, arr_types):
     try:
         module = importlib.import_module(mod_name)
         sorts = inspect.getmembers(module, inspect.isfunction)
     except:
         print("\nModule name not found.  Please enter valid module name")
         return
+
+    if arr_types == "all":
+        arr_types = ["srt", "cls", "rnd", "rev"]
+
+    print("\nRunning test on list of length {}".format(list_size))
+    print("\nRepeating each sort {} times".format(repeat))
 
     # sorts is a list of tuples.  Each tuple contians func name and func value.
     for sort_name, sort_func in sorts:
@@ -44,23 +50,27 @@ def test(mod_name, list_size=1000, runs=10, arr_types=["srt", "cls", "rnd", "rev
             mysetup = (
                 # Import, sort and array.
                 "from {mod} import {sort};"
-                "from lists import {arr}_{num};"
-                # Make shallow copy of array each setup or it will become sorted
-                "arr = {arr}_{num}[:];".format(
+                "from lists import {arr}_{num}".format(
                     mod=mod_name,
                     sort=sort_name,
                     arr=arr,
                     num=list_size,
                 )
             )
-            # Use shallow copy arr created in setup above
-            code = "{sort}(arr)".format(sort=sort_name)
+            # Create shallow copy of list or it will be sorted after first run
+            # This does introduce a bit of overhead but is necessary
+            code = "{sort}({arr}_{num}[:])".format(
+                sort=sort_name,
+                arr=arr,
+                num=list_size
+            )
             time = timeit.timeit(
                 setup=mysetup,
                 stmt=code,
-                number=runs,
+                number=repeat,
             )
-            print("Sorting {} took {:.5f}s per run".format(arr, time/runs))
+            print("Sorting {} took {:.5f}s per run".format(arr, time/repeat))
+    return None
 
 if __name__ == '__main__':
     main()
