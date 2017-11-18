@@ -1,31 +1,55 @@
+import argparse
 import inspect
 import importlib
 import timeit
-import sys
 
 # TODO: generate lists in random_lists module to test against the same list
 # TODO: modularize maine so I can specify module or list to test
 # TODO: make timeit work
 
 def main():
-    # This whole function is super kludgy and needs significant work.
-    # Right now it works for me so I am leaving it alone.
-    if len(sys.argv) == 1:
-        print("\nArguments required.  Please provide a module to test.")
-        return
-    elif len(sys.argv) == 2:
-        test(sys.argv[1])
-    elif len(sys.argv) == 5:
-        mod_name = sys.argv[1]
-        try:
-            list_size = int(sys.argv[2])
-            runs = int(sys.argv[3])
-        except:
-            print("\nlist_size and runs must both be ints.")
-            return
-        arr_types = sys.argv[4].split(' ')
+    parser = argparse.ArgumentParser(description="Test sorting module displaying timed results.")
 
-        test(mod_name, list_size, runs, arr_types)
+    # Add required argument "module name"
+    parser.add_argument(
+        "mod_name",
+        help="The module you wish to test.",
+        type=str
+    )
+
+    # Add optional argument "list size"
+    parser.add_argument(
+        "-l",
+        "--list_size",
+        help="The size of list to test with. Default = 1000.",
+        choices=[100, 1000, 10000, 100000],
+        default=1000,
+        type=int
+    )
+
+    # Add option argument "repeat"
+    parser.add_argument(
+        "-r",
+        "--repeat",
+        help="The number or times to repeat each test. Default = 3.",
+        default=3,
+        type=int
+    )
+
+    # Add optional argument "array types"
+    parser.add_argument(
+        "-t",
+        "--type",
+        help="The types of array(s) to test with. Default = all.",
+        choices=["all", "srt", "cls", "rnd", "rev"],
+        default="all",
+        type=str
+    )
+
+    # Parse argument and run test with provided arguements
+    args = parser.parse_args()
+    test(args.mod_name, args.list_size, args.repeat, args.type)
+
     return None
 
 
