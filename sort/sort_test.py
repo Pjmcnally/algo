@@ -6,9 +6,16 @@ from importlib import import_module
 from time import time as now
 from timeit import timeit
 
-
-
 def main():
+    begin = now()
+
+    args = parse_args()
+    test(args.mod_name, args.list_size, args.repeat, args.type)
+
+    end = now()
+    print("\nTotal process took {}".format(str(timedelta(seconds=end-begin))))
+
+def parse_args():
     parser = ArgumentParser(description="Test sorting module displaying timed results.")
 
     # Add required argument "module name"
@@ -52,12 +59,7 @@ def main():
     if args.repeat <= 0:
         parser.error("Minimum repeat value is 1")
 
-    beg = now()
-    test(args.mod_name, args.list_size, args.repeat, args.type)
-    end = now()
-
-    print("\nTotal process took {}".format(str(timedelta(seconds=end-beg))))
-    return None
+    return args
 
 def test(mod_name, list_size, repeat, arr):
     try:
