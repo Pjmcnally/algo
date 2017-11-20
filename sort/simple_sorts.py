@@ -42,6 +42,10 @@ def insertion_sort(arr):
 
         arr[pos] = val
 
+def shell_sort(arr):
+    """ A variation of insertion sort"""
+    pass
+
 def selection_sort(arr):
     """
     Selection sort is a simple sorting algorithm.
