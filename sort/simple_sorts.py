@@ -1,6 +1,22 @@
 def insertion_sort(arr):
-    """Inserton sort"""
-    pass
+    """
+    Inserton sort is a simple sorting algorithm.
+
+    Insertion sort loops of the list n-1 times.  The first loop assumes the first
+    element is sorted.  The second element is then put into its proper place
+    in the sorted section of the list.
+
+    This continues until all elements are sorted.
+
+    """
+    for i in range(1, len(arr)):
+        val = arr[i]
+        pos = i
+        while (pos > 0 and arr[pos - 1] > val):
+            arr[pos] = arr[pos - 1]
+            pos -= 1
+
+        arr[pos] = val
 
 def selection_sort(arr):
     """
