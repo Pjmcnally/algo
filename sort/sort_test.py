@@ -49,7 +49,7 @@ def parse_args():
         "-t",
         "--type",
         help="The types of array(s) to test with. Default = all.",
-        choices=["all", "srt", "cls", "rnd", "rev"],
+        choices=["all", "srt", "cls", "sim", "rnd", "rev"],
         default="all",
         type=str
     )
@@ -70,7 +70,7 @@ def test(mod_name, list_size, repeat, arr):
         return
 
     if arr == "all":
-        arr_types = ["srt", "cls", "rnd", "rev"]
+        arr_types = ["srt", "cls", "sim", "rnd", "rev"]
     else:
         arr_types = []
         arr_types.append(arr)
