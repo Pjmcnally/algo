@@ -1,3 +1,27 @@
+def insertion_swap_sort(arr):
+    """
+    Inserton sort is a simple sorting algorithm.
+
+    This implementation loops over a list n-1 times.
+
+    The first loop begins with the second element as the first element is
+    assumed to be sorted.  Examining the second element swap it to the left
+    if the element to the left is larger.  Do this until the element is in the
+    correct position.
+
+    Repeat this procedure until all elements are sorted.
+
+    This is an in-place and stable sort.
+
+    However, the significant amount of swaps can have a negative impact on its
+    runtime
+    """
+    for i in range(1, len(arr)):
+        j = i
+        while (j > 0 and arr[j - 1] > arr[j]):
+            arr[j], arr[j-1] = arr[j-1], arr[j]
+            j -= 1
+
 def insertion_sort(arr):
     """
     Inserton sort is a simple sorting algorithm.
