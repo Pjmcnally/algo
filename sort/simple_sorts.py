@@ -44,3 +44,26 @@ def cocktail_selection(arr):
         if i == max_i:
             max_i = min_i
         arr[n - 1 - i], arr[max_i] = arr[max_i], arr[n - 1 - i]
+
+from random import shuffle
+def main():
+    a = []
+    b = [1]
+    c = [2, 1]
+    d = list(range(0, 10))
+    e = list(range(0, 11))
+    shuffle(d)
+    shuffle(e)
+
+    lists = [a, b, c, d, e]
+    for l in lists:
+        selection_sort(l)
+
+    assert a == []
+    assert b == [1]
+    assert c == [1, 2]
+    assert d == list(range(10))
+    assert e == list(range(11))
+
+
+main()
