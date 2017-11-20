@@ -30,7 +30,10 @@ def make_close(arr):
     return temp
 
 def make_similar(num):
-    sim_list = [1, 2, 3, 4, 5] * (num/5)
+    """
+    Generates a randomized list of many similar numbers (5 total number)
+    """
+    sim_list = [1, 2, 3, 4, 5] * (num//5)
     shuffle(sim_list)
     return sim_list
 
@@ -46,6 +49,7 @@ def gen_lists(file, num):
     with open(file, "w") as f:
         f.write("srt_{} = {}\n".format(num, srt_list))
         f.write("cls_{} = {}\n".format(num, cls_list))
+        f.write("sim_{} = {}\n".format(num, sim_list))
         f.write("rnd_{} = {}\n".format(num, rnd_list))
         f.write("rev_{} = {}\n".format(num, rev_list))
 
@@ -69,7 +73,7 @@ def check_cls(arr):
 
 def main():
     file = "list.txt"
-    num = 100
+    num = 100000
     gen_lists(file, num)
 
 
