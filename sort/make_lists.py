@@ -29,19 +29,25 @@ def make_close(arr):
                 pass # if array is out of bounds just skip it.
     return temp
 
+def make_similar(num):
+    sim_list = [1, 2, 3, 4, 5] * (num/5)
+    shuffle(sim_list)
+    return sim_list
+
 def gen_lists(file, num):
     """ Generates lists of differnt types and writes to temp file"""
 
     srt_list = list(range(num))  # Generates ordered list
     rev_list = srt_list[::-1]  # Generates reversed list
+    sim_list = make_similar(num)
     rnd_list = sample(srt_list, len(srt_list))  # Generates random list (without modifying original)
     cls_list = make_close(srt_list)  # Generates mostly sorted list
 
     with open(file, "w") as f:
         f.write("srt_{} = {}\n".format(num, srt_list))
-        f.write("rev_{} = {}\n".format(num, rev_list))
         f.write("cls_{} = {}\n".format(num, cls_list))
         f.write("rnd_{} = {}\n".format(num, rnd_list))
+        f.write("rev_{} = {}\n".format(num, rev_list))
 
 def check_cls(arr):
     """
@@ -63,11 +69,9 @@ def check_cls(arr):
 
 def main():
     file = "list.txt"
-    num = 1000
+    num = 100
     gen_lists(file, num)
 
-    for x in [lists.cls_100, lists.cls_1000, lists.cls_10000, lists.cls_100000]:
-        check_cls(x)
 
 if __name__ == '__main__':
     main()
