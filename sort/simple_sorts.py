@@ -35,12 +35,12 @@ def insertion_sort(arr):
     """
     for i in range(1, len(arr)):
         val = arr[i]
-        pos = i
-        while (pos > 0 and arr[pos - 1] > val):
-            arr[pos] = arr[pos - 1]
+        pos = i - 1
+        while (pos >= 0 and arr[pos] > val):
+            arr[pos + 1] = arr[pos]
             pos -= 1
 
-        arr[pos] = val
+        arr[pos + 1] = val
 
 def shell_sort(arr):
     """ A variation of insertion sort"""
