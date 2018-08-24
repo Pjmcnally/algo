@@ -6,6 +6,7 @@ from importlib import import_module
 from time import time as now
 from timeit import timeit
 
+
 def main():
     begin = now()
 
@@ -15,8 +16,11 @@ def main():
     end = now()
     print("\nTotal process took {}".format(str(timedelta(seconds=end-begin))))
 
+
 def parse_args():
-    parser = ArgumentParser(description="Test sorting module displaying timed results.")
+    parser = ArgumentParser(
+        description="Test sorting module displaying timed results."
+    )
 
     # Add required argument "module name"
     parser.add_argument(
@@ -54,12 +58,13 @@ def parse_args():
         type=str
     )
 
-    # Parse argument and run test with provided arguements
+    # Parse argument and run test with provided arguments
     args = parser.parse_args()
     if args.repeat <= 0:
         parser.error("Minimum repeat value is 1")
 
     return args
+
 
 def test(mod_name, list_size, repeat, arr):
     try:
@@ -87,11 +92,11 @@ def test(mod_name, list_size, repeat, arr):
         )
     )
 
-    # sorts is a list of tuples.  Each tuple contians func name and func value.
+    # sorts is a list of tuples.  Each tuple contains func name and func value.
     for sort_name, sort_func in sorts:
         print("\nTesting {} sorting method:".format(sort_name))
         for arr in arr_types:
-            mysetup = (
+            my_setup = (
                 # Import, sort and array.
                 "from {mod} import {sort};"
                 "from lists import {arr}_{num}".format(
@@ -102,19 +107,21 @@ def test(mod_name, list_size, repeat, arr):
                 )
             )
             # Create shallow copy of list or it will be sorted after first run
-            # This does introduce a bit of overhead to each test but is necessary
+            # This does introduce a bit of overhead to each test but is
+            # necessary
             code = "{sort}({arr}_{num}[:])".format(
                 sort=sort_name,
                 arr=arr,
                 num=list_size
             )
             time = timeit(
-                setup=mysetup,
+                setup=my_setup,
                 stmt=code,
                 number=repeat,
             )
             print("Sorting {} took {:.5f}s per run".format(arr, time/repeat))
     return None
+
 
 if __name__ == '__main__':
     main()
