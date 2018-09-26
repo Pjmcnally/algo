@@ -1,4 +1,7 @@
-"""Code for The Lift problem on Codewars.com."""
+"""Code for The Lift on Codewars.com.
+
+https://www.codewars.com/kata/the-lift
+"""
 
 
 class Dinglemouse(object):
