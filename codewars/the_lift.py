@@ -1,36 +1,44 @@
+"""Code for The Lift problem on Codewars.com."""
+
+
 class Dinglemouse(object):
+    """Class to control elevator."""
+
     def __init__(self, queues, capacity):
+        """Init function."""
         self.capacity = capacity
         self.occupants = []
         self.history = [0]
         self.floor = 0
-        self.destination = 0
         self.direction = "up"
-        self.setQueues(queues)
+        self.queues = queues
 
-    def setQueues(self, queues):
-        self.up_queue = [[p for p in f if p > i] for i, f in enumerate(queues)]
-        self.dn_queue = [[p for p in f if p < i] for i, f in enumerate(queues)]
-
-    def theLift(self):
-        return self.up_queue
+    def theLift(self):  # pylint: disable=C0103
+        """Start the lift."""
+        return None
 
     def unload(self):
+        """Unload passengers."""
         self.occupants = [x for x in self.occupants if x != self.floor]
 
     def load(self):
-        while len(self.occupants) < self.capacity:
-            self.occupants.append(queue.pop(0))
+        """Load passengers."""
+        pass
+        # while len(self.occupants) < self.capacity:
+        #     self.occupants.append(self.queue.pop(0))
 
     def stop(self, floor):
-        self.updateFloor(floor)
+        """Stop on floor."""
+        self.update_floor(floor)
         self.unload()
-        self.updateDestination()
+        # self.updateDestination()
         self.load()
 
-    def updateFloor(self, floor):
+    def update_floor(self, floor):
+        """Update value of current floor."""
         self.history.append(floor)
         self.floor = floor
 
-    def nextStop(self):
+    def next_stop(self):
+        """Get next stop."""
         pass
