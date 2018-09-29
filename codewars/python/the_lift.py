@@ -2,7 +2,7 @@
 
 https://www.codewars.com/kata/the-lift
 """
-import test
+import codewarstest
 
 
 class Dinglemouse(object):
@@ -101,8 +101,6 @@ class Dinglemouse(object):
                 if [x for x in elem if x < i]:
                     self.stops.add(i)
 
-print("this", "is", "a", "test", "this", "is", "a", "test", "this", "is", "a", "test", "this", "is", "a", "test", "this", "is", "a", "test")
-
 
 # Tests below this line
 # ==============================================================================
@@ -110,9 +108,9 @@ tests = [
     [((), (), (5, 5, 5), (), (), (), ()), [0, 2, 5, 0]],
     [((), (), (1, 1), (), (), (), ()), [0, 2, 1, 0]],
     [((), (3, ), (4, ), (), (5, ), (), ()), [0, 1, 2, 3, 4, 5, 0]],
-    [((), (0, ), (), (), (2, ), (3, ), ()), [0, 5, 4, 3, 2, 1, 0]]
+    [((), (0, ), (), (), (2, ), (3, ), ()), [0, 5, 4, 3, 2, 1, 0]],
 ]
 
 for queues, answer in tests:
     lift = Dinglemouse(queues, 5)
-    test.assert_equals(lift.theLift(), answer)
+    codewarstest.assert_equals(lift.theLift(), answer)
