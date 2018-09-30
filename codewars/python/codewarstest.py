@@ -1,10 +1,13 @@
 """Adapt unittest to CodeWars style tests."""
-import unittest
 
 
-def assert_equals(val, result, message_fail=''):
+def assert_equals(val, result, default_message=''):
     """Adapate CodeWars assert_equals func to unittests."""
-    test = unittest.TestCase()
+    message = ["FAILED", "Passed"]
+    comp = ["!=", "="]
+    success = (val == result)
 
-    test.assertEqual(val, result, message_fail)
-    print(f"{val} = {result}: Test Passed")
+    if default_message:
+        print(f"Test {message[success]}: {default_message}")
+    else:
+        print(f"Test {message[success]}: {val} {comp[success]} {result}")
