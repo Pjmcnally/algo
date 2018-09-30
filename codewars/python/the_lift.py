@@ -2,48 +2,48 @@
 
 https://www.codewars.com/kata/the-lift
 """
-import codewarstest
+import operator
 
 
 class Dinglemouse(object):
     """Class to control elevator."""
 
-    def __init__(self, people, capacity):
+    # 1 is going up, 0 is going down.
+    DIR_FUNC = {1: operator.gt, 0: operator.lt}
+
+    def __init__(self, floors, capacity):
         """Init function."""
         self.capacity = capacity
         self.occupants = []
         self.history = [0]
         self.floor = 0
-        self.direction = "up"
-        self.queues = list(people)
+        self.direction = 1  # 1 is up, 0 is down.
+        self.queues = [list(floor) for floor in floors]
         self.stops = set()
 
     def theLift(self):  # pylint: disable=C0103
         """Start the lift."""
-        while self.check_waiting():  # while anyone is waiting
-            self.build_stops()  # Add people waiting to stops
-            while self.stops:  # Go one direction until done
-                self.stop(self.get_next_stop())
-            self.change_direction()
+        while self.check_for_waiting():  # while anyone is waiting
+            self.build_stops()  # Add people waiting to go current dir to stops
+            while self.stops:  # Continue until no stops remain
+                self.stop(self.get_next_stop())  # Stop at next stop
+            self.change_direction()  # Change direction when stops is empty
 
-        if self.floor:  # Done. If not on 0 go to 0.
-            self.history.append(0)
+        self.update_floor(0)  # Done. Got to the bottom floor.
 
         return self.history
 
-    def check_waiting(self):
+    def check_for_waiting(self):
         """Check to see if anyone is waiting."""
-        if [x for x in self.queues if x]:
-            return True
-        else:
-            return False
+        for floor in self.queues:
+            if floor:
+                return True
+
+        return False
 
     def change_direction(self):
         """Change direction."""
-        if self.direction == 'up':
-            self.direction = 'dn'
-        elif self.direction == 'dn':
-            self.direction = 'up'
+        self.direction = int(not self.direction)
 
     def unload(self):
         """Unload passengers."""
@@ -53,29 +53,22 @@ class Dinglemouse(object):
         """Load passengers."""
         temp_list = []
 
-        if self.direction == 'up':
-            for elem in self.queues[self.floor]:
-                if len(self.occupants) < self.capacity and elem > self.floor:
-                    self.occupants.append(elem)
-                    self.stops.add(elem)
-                else:
-                    temp_list.append(elem)
-        elif self.direction == 'dn':
-            for elem in self.queues[self.floor]:
-                if len(self.occupants) < self.capacity and elem < self.floor:
-                    self.occupants.append(elem)
-                    self.stops.add(elem)
-                else:
-                    temp_list.append(elem)
+        for person in self.queues[self.floor]:
+            if (len(self.occupants) < self.capacity  # If there is room
+                    # and someone going the direction of the lift.
+                    and self.DIR_FUNC[self.direction](person, self.floor)):
+                self.occupants.append(person)
+                self.stops.add(person)
+            else:
+                temp_list.append(person)  # Save remaining people to leave
 
-        self.queues[self.floor] = temp_list
+        self.queues[self.floor] = temp_list  # Replace orig list with remaining
 
     def stop(self, floor):
         """Stop on floor."""
         self.update_floor(floor)
         self.unload()
         self.load()
-        self.stops.remove(self.floor)
 
     def update_floor(self, floor):
         """Update value of current floor."""
@@ -83,27 +76,27 @@ class Dinglemouse(object):
             self.history.append(floor)
             self.floor = floor
 
+        if floor in self.stops:
+            self.stops.remove(floor)
+
     def get_next_stop(self):
         """Get next stop."""
-        if self.direction == 'up':
-            return min(self.stops)
-        elif self.direction == 'dn':
-            return max(self.stops)
+        if self.direction:  # if going up.
+            return min(self.stops)  # return lowest stop in the list
+        else:  # Going down
+            return max(self.stops)  # return highest stop in the list
 
     def build_stops(self):
         """Get floors with people waiting for elevator in current direction."""
-        if self.direction == 'up':
-            for i, elem in enumerate(self.queues):
-                if [x for x in elem if x > i]:
-                    self.stops.add(i)
-        elif self.direction == 'dn':
-            for i, elem in enumerate(self.queues):
-                if [x for x in elem if x < i]:
-                    self.stops.add(i)
+        for i, elem in enumerate(self.queues):
+            if [x for x in elem if self.DIR_FUNC[self.direction](x, i)]:
+                self.stops.add(i)
 
 
 # Tests below this line
 # ==============================================================================
+import codewarstest  # noqa: E402, pylint: disable=C0413
+
 tests = [
     [((), (), (5, 5, 5), (), (), (), ()), [0, 2, 5, 0]],
     [((), (), (1, 1), (), (), (), ()), [0, 2, 1, 0]],
