@@ -1,3 +1,6 @@
+# Look into https://stackoverflow.com/questions/10249378/segmented-sieve-of-eratosthenes/10249801#10249801
+
+
 def sieve_list(num):
     # Create list representing numbers between 0 and num. Assume all are prime.
     primes = [True] * (num)
@@ -53,7 +56,7 @@ def sieve_dict(num):
 
 
 def main():
-    print(sieve_set(1000))
+    print(sieve_set(170))
 
 
 if __name__ == '__main__':
