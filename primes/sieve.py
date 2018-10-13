@@ -11,7 +11,7 @@ def sieve_list(num):
     # at index n. Assume all numbers are prime when constructing list.
     primes = [True] * (num)
 
-    # Manually set 0 and 1 to not prime
+    # Manually set 0 and 1 to False (not prime)
     primes[0] = False
     primes[1] = False
 
