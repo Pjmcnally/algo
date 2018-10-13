@@ -102,7 +102,6 @@ def get_functions():
     """Return all functions in this module (except for default)."""
     import sys
     import inspect
-    import json
 
     default = {'main', 'get_functions'}
     raw_functions = inspect.getmembers(sys.modules[__name__],
