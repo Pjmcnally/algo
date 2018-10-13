@@ -52,7 +52,7 @@ def distribute(m, n):
 # python -m timeit -s "a = 10; b = 100; n = 1000000" "([a] * (n - b)) + ([a + 1] * b)"  # noqa
 # 50 loops, best of 5: 7.57 msec per loop
 
-# Timing List Comprehesion function:
+# Timing List Comprehension function:
 # python -m timeit -s "b = 10; x = 100; n = 1000000" "[b + (i < x) for i in range(n)]"  # noqa
 # 1 loop, best of 5: 83.9 msec per loop
 
