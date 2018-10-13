@@ -98,6 +98,18 @@ def sieve_set_odd(num):
     return sorted(primes)
 
 
+def get_functions():
+    """Return all functions in this module (except for default)."""
+    import sys
+    import inspect
+    import json
+
+    default = {'main', 'get_functions'}
+    raw_functions = inspect.getmembers(sys.modules[__name__],
+                                       inspect.isfunction)
+    return [x[0] for x in raw_functions if x[0] not in default]
+
+
 def main():
     """Execute main function."""
     print(sieve_list(200))
