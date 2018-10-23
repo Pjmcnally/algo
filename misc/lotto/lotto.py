@@ -7,15 +7,23 @@ class Lotto():
 
     def __init__(self):
         """Init function."""
-        self.nums = list(range(1, 71))
+        # Setup pool of possible numbers
+        self.num_max = 70
+        self.extra_num_max = 25
+        self.nums = list(range(1, self.num_max + 1))
+
+        # Setup rules to select nums
+        self.num_selected = 5
         self.winning_nums = []
 
     def run_lottery(self):
         """Run simulated lottery."""
+        # Generate and display winning numbers
         self.winning_nums = self.generate_ticket()
-        print("\r\nWinning ticket: {0:02} {1:02} {2:02} {3:02} {4:02} {5:02} ".
-              format(*self.winning_nums))
+        print("\r\nWinning ticket: ", end="")
+        print(" ".join(f"{x:02}" for x in self.winning_nums))
 
+        # Attempt to match winning numbers. Stop when winning ticket found.
         counter = 0
         while True:
             counter += 1
@@ -29,8 +37,8 @@ class Lotto():
         """Generate lottery ticket."""
         shuffle(self.nums)
 
-        ticket = self.nums[0:5]
-        ticket.append(randint(1, 25))
+        ticket = self.nums[0:self.num_selected]
+        ticket.append(randint(1, self.extra_num_max))
 
         return ticket
 
