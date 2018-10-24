@@ -1,12 +1,12 @@
 """Screwing around with simple lottery simulator."""
-from random import randint, shuffle
+from random import randint, shuffle, sample
 
 
 def run_lottery():
     """Run simulated lottery."""
     winning_nums = generate_ticket()
-    print("\r\nWinning ticket: {0:02} {1:02} {2:02} {3:02} {4:02} {5:02} ".
-          format(*winning_nums))
+    print("\r\nWinning ticket: ", end="")
+    print(" ".join(f"{x:02}" for x in winning_nums))
 
     counter = 0
     while True:
@@ -20,11 +20,15 @@ def run_lottery():
 
 def generate_ticket():
     """Generate lottery ticket."""
-    nums = list(range(1, 71))
+    num_max = 70
+    extra_num_max = 25
+    num_selected = 5
+
+    nums = list(range(1, num_max + 1))
     shuffle(nums)
 
-    ticket = nums[0:5]
-    ticket.append(randint(1, 25))
+    ticket = nums[0:num_selected]
+    ticket.append(randint(1, extra_num_max))
 
     return ticket
 
