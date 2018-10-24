@@ -1,5 +1,5 @@
 """Screwing around with simple lottery simulator."""
-from random import randint, shuffle, sample
+from random import randint, shuffle
 
 
 def run_lottery():
