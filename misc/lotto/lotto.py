@@ -1,5 +1,5 @@
 """Screwing around with simple lottery simulator."""
-from random import randint, shuffle
+from random import randint, shuffle, sample
 
 
 class Lotto():
@@ -10,7 +10,7 @@ class Lotto():
         # Setup pool of possible numbers
         self.num_max = 70
         self.extra_num_max = 25
-        self.nums = list(range(1, self.num_max + 1))
+        self.nums = range(1, self.num_max + 1)
 
         # Setup rules to select nums
         self.num_selected = 5
@@ -37,7 +37,7 @@ class Lotto():
         """Generate lottery ticket."""
         shuffle(self.nums)
 
-        ticket = self.nums[0:self.num_selected]
+        ticket = sample(self.nums, num_selected)
         ticket.append(randint(1, self.extra_num_max))
 
         return ticket
