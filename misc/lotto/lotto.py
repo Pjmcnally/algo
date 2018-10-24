@@ -18,7 +18,7 @@ class Lotto():
         self.winners_wanted = 1
         self.winning_nums = self.generate_ticket()
 
-        # Set
+        # Set misc attributes
         self.tickets_generated = 0
 
     def generate_ticket(self):
