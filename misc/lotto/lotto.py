@@ -8,7 +8,7 @@ class Lotto():
     def __init__(self):
         """Init function."""
         # Setup pool of possible numbers
-        self.num_max = 5
+        self.num_max = 70
         self.extra_num_max = 25
         self.nums = range(1, self.num_max + 1)
 
