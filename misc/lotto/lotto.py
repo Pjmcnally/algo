@@ -1,6 +1,7 @@
 """Screwing around with simple lottery simulator."""
 from math import factorial
 from random import randint, sample
+from textwrap import dedent
 
 
 class Lotto():
@@ -8,7 +9,7 @@ class Lotto():
 
     def __init__(self, config=""):
         """Init function."""
-        self.config = self.get_configuration(config)
+        self.config = LottoConfig.from_name(config)
         self.winning_nums = self.generate_ticket()
         self.odds = self.calculate_odds()
         self.tickets_generated = 0
@@ -17,20 +18,6 @@ class Lotto():
         # Displaying every 10,000 is essentially as fast as not displaying
         # at all. Also very little is gained from increasing interval.
         self.print_interval = (1 if self.odds < 1000000 else 10000)
-
-    def get_configuration(self, config=""):
-        """Generate and return different lottery configurations."""
-        if config == "Powerball":
-            config = LottoConfig(
-                num_min=1, num_max=69, num_count=5, extra_num_max=26)
-        elif config == "Mega Millions":
-            config = LottoConfig(
-                num_min=1, num_max=70, num_count=5, extra_num_max=25)
-        else:  # "Using for testing"
-            config = LottoConfig(
-                num_min=1, num_max=10, num_count=5, extra_num_max=25)
-
-        return config
 
     def display_start(self):
         """Display winning numbers."""
@@ -79,15 +66,51 @@ class Lotto():
 
 
 class LottoConfig():
-    """Hold lottery configuration data."""
+    """Hold and parse lottery configuration data."""
 
-    def __init__(self, num_min, num_max, num_count, extra_num_max):
+    def __init__(self, name, num_min, num_max, num_count, extra_num_max):
         """Init function."""
+        self.name = name
         self.num_min = num_min
         self.num_max = num_max
         self.num_count = num_count
         self.nums = range(self.num_min, self.num_max + 1)
         self.extra_num_max = extra_num_max
+
+    def __str__(self):
+        """Represent as string."""
+        return dedent(f"""
+            Config name: {self.name}
+            Num range: {self.num_min} - {self.num_max}
+            Number of numbers selected: {self.num_count}
+            Extra num maximum value: {self.extra_num_max}""")
+
+    @classmethod
+    def from_name(cls, name):
+        """Generate and return different lottery configurations."""
+        if name == "Powerball":
+            config = cls(
+                name=name,
+                num_min=1,
+                num_max=69,
+                num_count=5,
+                extra_num_max=26)
+        elif config == "Mega Millions":
+            config = cls(
+                name=name,
+                num_min=1,
+                num_max=70,
+                num_count=5,
+                extra_num_max=25)
+        else:  # "Using for testing"
+            config = cls(
+                name="Testing Config",
+                num_min=1,
+                num_max=10,
+                num_count=5,
+                extra_num_max=25)
+
+        return config
 
 
 class LottoTicket():
