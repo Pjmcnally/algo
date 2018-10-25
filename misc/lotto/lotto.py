@@ -74,7 +74,7 @@ class Lotto():
     def run_lottery(self):
         """Run simulated lottery."""
         self.display_start()
-        self.find_winners()
+        self.find_winner()
         self.display_end()
 
 
