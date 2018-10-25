@@ -7,9 +7,9 @@ from textwrap import dedent
 class Lotto():
     """Class to simulate lottery."""
 
-    def __init__(self, config=""):
+    def __init__(self, config):
         """Init function."""
-        self.config = LottoConfig.from_name(config)
+        self.config = config  # Requires a LottoConfig class object
         self.winning_nums = self.generate_ticket()
         self.odds = self.calculate_odds()
         self.tickets_generated = 0
@@ -24,6 +24,7 @@ class Lotto():
         print("\r\nWinning numbers: ", end="")
         print(self.winning_nums)
         print(f"Odds of winning: 1 in {self.odds:,}\r\n")
+        print(f"\rTicket counter: {self.tickets_generated:,}", end="")
 
     def generate_ticket(self):
         """Generate lottery ticket."""
@@ -43,12 +44,10 @@ class Lotto():
 
     def find_winner(self):
         """Generate tickets to find winners. Stop when desired num found."""
-        print(f"\rTickets: {self.tickets_generated:,}", end="")
-
         while True:
             self.tickets_generated += 1
             if self.tickets_generated % self.print_interval == 0:
-                print(f"\rTickets: {self.tickets_generated:,}", end="")
+                print(f"\rTicket counter: {self.tickets_generated:,}", end="")
 
             if self.generate_ticket() == self.winning_nums:
                 break
@@ -79,7 +78,7 @@ class LottoConfig():
 
     def __str__(self):
         """Represent as string."""
-        return dedent(f"""
+        return dedent(f"""\
             Config name: {self.name}
             Num range: {self.num_min} - {self.num_max}
             Number of numbers selected: {self.num_count}
@@ -95,7 +94,7 @@ class LottoConfig():
                 num_max=69,
                 num_count=5,
                 extra_num_max=26)
-        elif config == "Mega Millions":
+        elif name == "Mega Millions":
             config = cls(
                 name=name,
                 num_min=1,
@@ -104,7 +103,7 @@ class LottoConfig():
                 extra_num_max=25)
         else:  # "Using for testing"
             config = cls(
-                name="Testing Config",
+                name=name,
                 num_min=1,
                 num_max=10,
                 num_count=5,
@@ -136,7 +135,12 @@ def main():
     import os
     os.system('cls')
 
-    lottery = Lotto("Powerball")
+    # Setup lottery configuration
+    config = LottoConfig.from_name("Test")
+    print(config)
+
+    # Setup and run lottery
+    lottery = Lotto(config)
     lottery.run_lottery()
 
 
