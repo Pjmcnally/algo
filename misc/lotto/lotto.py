@@ -54,7 +54,7 @@ class Lotto():
                        factorial(self.config.num_count))
         return (numerator // denominator) * self.config.extra_num_max
 
-    def find_winners(self):
+    def find_winner(self):
         """Generate tickets to find winners. Stop when desired num found."""
         print(f"\rTickets: {self.tickets_generated:,}", end="")
 
