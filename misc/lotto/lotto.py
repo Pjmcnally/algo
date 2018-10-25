@@ -34,7 +34,7 @@ class Lotto():
         while True:
             self.tickets_generated += 1
 
-            # Printing every 10,000 tickets increases program speed by 5x.
+            # Printing only every 10,000 tickets increases program speed by 5x.
             # Displaying every 10,000 is essentially as fast as not displaying
             # at all. Also very little is gained from increasing interval.
             if self.tickets_generated % 10000 == 0:
