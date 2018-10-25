@@ -13,12 +13,8 @@ class Lotto():
         self.nums = range(1, self.num_max + 1)
         self.extra_num_max = 25
 
-        # Get winning numbers
-        self.winners = 0
-        self.winners_wanted = 1
-        self.winning_nums = self.generate_ticket()
-
         # Set misc attributes
+        self.winning_nums = self.generate_ticket()
         self.tickets_generated = 0
 
     def generate_ticket(self):
@@ -35,21 +31,22 @@ class Lotto():
 
     def find_winners(self):
         """Generate tickets to find winners. Stop when desired num found."""
-        while self.winners < self.winners_wanted:
+        while True:
             self.tickets_generated += 1
-            if self.generate_ticket() == self.winning_nums:
-                self.winners += 1
 
-            print(
-                "\rTickets tried: {0:012,}. Winners found: {1:,}".format(
-                    self.tickets_generated, self.winners),
-                end="")
+            # Printing every 10,000 tickets increases program speed by 5x.
+            # Displaying every 10,000 is essentially as fast as not displaying
+            # at all. Also very little is gained from increasing interval.
+            if self.tickets_generated % 10000 == 0:
+                print(f"\rTickets: {self.tickets_generated:012,}", end="")
+
+            if self.generate_ticket() == self.winning_nums:
+                break
 
     def display_end(self):
         """Display final results."""
         print("\r\n\r\nLottery Over!")
-        print("Average tickets per winner: {0:,}".format(
-            self.tickets_generated // self.winners))
+        print(f"Tickets required to find winner: {self.tickets_generated:,}")
 
     def run_lottery(self):
         """Run simulated lottery."""
