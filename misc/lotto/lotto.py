@@ -8,10 +8,7 @@ class Lotto():
 
     def __init__(self, config=""):
         """Init function."""
-        # Setup pool of possible numbers
         self.config = self.get_configuration(config)
-
-        # Set misc attributes
         self.winning_nums = self.generate_ticket()
         self.odds = self.calculate_odds()
         self.tickets_generated = 0
