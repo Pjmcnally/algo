@@ -21,9 +21,14 @@ class Lotto():
 
     def display_start(self):
         """Display winning numbers."""
-        print("\r\nWinning numbers: ", end="")
-        print(self.winning_nums)
-        print(f"Odds of winning: 1 in {self.odds:,}\r\n")
+        print(self.config)
+        start = dedent(f"""\
+
+        Winning numbers: {self.winning_nums}
+        Odds of winning: 1 in {self.odds:,}
+
+        """)
+        print(start)
         print(f"\rTicket counter: {self.tickets_generated:,}", end="")
 
     def generate_ticket(self):
@@ -79,7 +84,7 @@ class LottoConfig():
     def __str__(self):
         """Represent as string."""
         return dedent(f"""\
-            Config name: {self.name}
+            Lottery name: {self.name}
             Num range: {self.num_min} - {self.num_max}
             Number of numbers selected: {self.num_count}
             Extra num maximum value: {self.extra_num_max}""")
@@ -105,7 +110,7 @@ class LottoConfig():
             config = cls(
                 name=name,
                 num_min=1,
-                num_max=10,
+                num_max=50,
                 num_count=5,
                 extra_num_max=25)
 
@@ -135,12 +140,8 @@ def main():
     import os
     os.system('cls')
 
-    # Setup lottery configuration
-    config = LottoConfig.from_name("Test")
-    print(config)
-
     # Setup and run lottery
-    lottery = Lotto(config)
+    lottery = Lotto(LottoConfig.from_name("Test"))
     lottery.run_lottery()
 
 
