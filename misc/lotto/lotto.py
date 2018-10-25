@@ -1,6 +1,8 @@
 """Screwing around with simple lottery simulator."""
+import os
 from math import factorial
 from random import randint, sample
+from sys import argv
 from textwrap import dedent
 
 
@@ -137,11 +139,17 @@ class LottoTicket():
 
 def main():
     """Execute main function."""
-    import os
     os.system('cls')
 
+    if len(argv) == 1:
+        config = "Test"
+    elif len(argv) == 2:
+        config = argv[1]
+    else:
+        raise TypeError("Script takes either 0 or 1 arguments")
+
     # Setup and run lottery
-    lottery = Lotto(LottoConfig.from_name("Test"))
+    lottery = Lotto(LottoConfig.from_name(config))
     lottery.run_lottery()
 
 
