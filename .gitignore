@@ -20,7 +20,10 @@ lib64/
 parts/
 sdist/
 var/
+<<<<<<< HEAD
 wheels/
+=======
+>>>>>>> andrew/master
 *.egg-info/
 .installed.cfg
 *.egg
@@ -43,7 +46,11 @@ htmlcov/
 .cache
 nosetests.xml
 coverage.xml
+<<<<<<< HEAD
 *.cover
+=======
+*,cover
+>>>>>>> andrew/master
 .hypothesis/
 
 # Translations
@@ -67,7 +74,11 @@ docs/_build/
 # PyBuilder
 target/
 
+<<<<<<< HEAD
 # Jupyter Notebook
+=======
+# IPython Notebook
+>>>>>>> andrew/master
 .ipynb_checkpoints
 
 # pyenv
@@ -76,19 +87,26 @@ target/
 # celery beat schedule file
 celerybeat-schedule
 
+<<<<<<< HEAD
 # SageMath parsed files
 *.sage.py
 
+=======
+>>>>>>> andrew/master
 # dotenv
 .env
 
 # virtualenv
+<<<<<<< HEAD
 .venv
+=======
+>>>>>>> andrew/master
 venv/
 ENV/
 
 # Spyder project settings
 .spyderproject
+<<<<<<< HEAD
 .spyproject
 
 # Rope project settings
@@ -102,3 +120,8 @@ ENV/
 
 # VS Code Stuff
 .vscode
+=======
+
+# Rope project settings
+.ropeproject
+>>>>>>> andrew/master
