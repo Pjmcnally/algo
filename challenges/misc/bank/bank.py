@@ -22,7 +22,6 @@ def read_csv_data(src):
 def parse_csv_data(data):
     last_month_profit = 0
     start_profit = None
-
     res = {
         "month_count": 0,
         "profit_total": 0,
@@ -67,23 +66,15 @@ def parse_csv_data(data):
 
 
 def format_output(data):
-    template = """\
+    template = f"""\
         Financial Analysis
         ----------------------------
-        Total Months: {month_count}
-        Total: ${profit_total:,}
-        Average Change: ${change_avg:,.2f}
-        Greatest Increase in Profits: {max_inc_month} (${max_inc_value:,})
-        Greatest Decrease in Profits: {max_dec_month} (${max_dec_value:,})
-    """.format(
-        month_count=data["month_count"],
-        profit_total=data["profit_total"],
-        change_avg=data["change_avg"],
-        max_inc_month=data["max_increase"]["month"],
-        max_inc_value=data["max_increase"]["change"],
-        max_dec_month=data["max_decrease"]["month"],
-        max_dec_value=data["max_decrease"]["change"],
-    )
+        Total Months: {data["month_count"]}
+        Total: ${data["profit_total"]:,}
+        Average Change: ${data["change_avg"]:,.2f}
+        Greatest Increase in Profits: {data["max_increase"]["month"]} (${data["max_increase"]["change"]:,})
+        Greatest Decrease in Profits: {data["max_decrease"]["month"]} (${data["max_decrease"]["change"]:,})
+    """  # noqa: E501
 
     return dedent(template)
 
