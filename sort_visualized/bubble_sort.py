@@ -63,5 +63,5 @@ animation = ani.FuncAnimation(
     save_count=10000,
 )
 
-animation.save(r"C:\Users\Patrick\Desktop\Demo.mp4")
-# plt.show()
+# animation.save(r"C:\Users\Patrick\Desktop\Demo.mp4")
+plt.show()
