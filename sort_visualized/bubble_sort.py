@@ -23,40 +23,71 @@ ax.axes.get_yaxis().set_visible(False)
 def bubble_sort_gen():
     """Yield current state of bubble sort."""
     sorted_index = len(data)
-    iter_count = 0
-    while sorted_index >= 0:
-        iter_count += 1
+    swapped = True
+    while swapped:
+        swapped = False
         for i in range(sorted_index - 1):
-            yield (data, iter_count, i, i + 1, sorted_index)
+            yield (data, i, i + 1, sorted_index)
             if data[i] > data[i + 1]:
+                swapped = True
                 data[i], data[i + 1] = data[i + 1], data[i]
-                yield (data, iter_count, i + 1, i, sorted_index)
+                yield (data, i + 1, i, sorted_index)
         sorted_index -= 1
 
     for i in range(10):  # Add frames of fully sorted to end
-        yield (data, iter_count, 0, 0, 0)
+        yield (data, 0, 0, 0)
+
+
+def cocktail_shaker_gen():
+    """Yield current state of bubble sort."""
+    sorted_index_high = len(data)
+    sorted_index_low = -1
+    swapped = True
+    while swapped:
+        swapped = False
+        for i in range(sorted_index_low + 1, sorted_index_high - 1):
+            yield (data, i, i + 1, sorted_index_low, sorted_index_high)
+            if data[i] > data[i + 1]:
+                swapped = True
+                data[i], data[i + 1] = data[i + 1], data[i]
+                yield (data, i + 1, i, sorted_index_low, sorted_index_high)
+        sorted_index_high -= 1
+        if not swapped:
+            break
+
+        swapped = False
+        for i in range(sorted_index_high - 1, sorted_index_low + 1, -1):
+            yield (data, i, i - 1, sorted_index_low, sorted_index_high)
+            if data[i] < data[i - 1]:
+                swapped = True
+                data[i], data[i - 1] = data[i - 1], data[i]
+                yield (data, i - 1, i, sorted_index_low, sorted_index_high)
+        sorted_index_low += 1
+
+    for i in range(10):  # Add frames of fully sorted to end
+        yield (data, 0, 0, 0, 0)
 
 
 def update(frame):
     """Frame is the (data, i, iter_count) tuple."""
-    datums, iter_count, orange, red, sorted_index = frame
+    datums, orange, red, sorted_index_low, sorted_index_high = frame
     ax.clear()
     bars = ax.bar(range(len(data)), datums)
     for k in range(len(data)):
-        if k >= sorted_index:
+        if k <= sorted_index_low or k >= sorted_index_high:
             bars[k].set_color("green")
         elif k == orange or k == red:
             bars[k].set_color("orange")
         else:
             bars[k].set_color("blue")
 
-    ax.set_title('Bubble Sort\nPass: {}'.format(iter_count))
+    ax.set_title('Bubble Sort')
 
 
 animation = ani.FuncAnimation(
     fig,
     update,
-    frames=bubble_sort_gen,
+    frames=cocktail_shaker_gen,
     interval=200,
     blit=False,
     repeat=False,
