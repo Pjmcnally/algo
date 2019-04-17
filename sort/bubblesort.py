@@ -2,9 +2,9 @@
 Bubble sort is a simple comparative sorting algorithm.
 
 It is very inefficient and should basically never be used.  Other simple sorts
-(like insertion or select) should almost always be prefered over bubble sort.
+(like insertion or select) should almost always be preferred over bubble sort.
 
-Bubble sort loops over the array, compares adjacent elements, and swapps
+Bubble sort loops over the array, compares adjacent elements, and swaps
 them if they are out of order.  This is repeated until the list is sorted.
 
 Worst case this will require n^2 runtime.  For unoptimized Bubble sorts it will
@@ -12,14 +12,13 @@ always require n^2 runtime.
 
 It is possible to optimize bubble sort slightly by looping over a smaller and
 smaller section of the list each pass.  After one loop the last element of the
-list is guarenteed to be sorted and no longer needs to be considered.
+list is guaranteed to be sorted and no longer needs to be considered.
 
 It is possible to take this approach a step futher and adaptively expand the
 sorted section of the list by noting the position of the last swap.  This can
-significantly speed up bubble sort espescially on data that is already or almost
+significantly speed up bubble sort especially on data that is already or almost
 sorted.
 """
-
 """ Testing Results:
 Running test on bubblesort module.
 Test is using all list types
@@ -59,23 +58,23 @@ Sorting rev took 17.80244s per run
 Total process took 0:32:27.271671
 """
 
+
 def raw_bubblesort(arr):
-    """
+    """Raw bubble sort.
+
     This implementation of bubble sort is completely unoptimized. It will fully
     loop over the list (even the "sorted" section every pass).
 
     This is an in-place sort.
     """
-    l = len(arr) - 1
-    for loop in range(l):
-        for i in range(l):
+    for loop in range(len(arr) - 1):
+        for i in range(len(arr) - 1):
             if arr[i] > arr[i + 1]:
                 arr[i], arr[i + 1] = arr[i + 1], arr[i]
-    return None
+
 
 def shrinking_bubblesort(arr):
-    """
-    This version of bubble sort is slightly optimized.
+    """Slightly optimized version of bubble.
 
     It will only loop over the unsorted section of the list.  After each pass
     we can assume the final element of that pass is sorted and we do not need
@@ -83,21 +82,19 @@ def shrinking_bubblesort(arr):
 
     This is an in-place sort.
     """
-
-    # j is our shriking upper bound. i counts from 0 to j. Swap if necessary.
+    # j is our shrinking upper bound. i counts from 0 to j. Swap if necessary.
     for j in range(len(arr) - 1, 0, -1):
         for i in range(0, j):
             if arr[i] > arr[i + 1]:
                 arr[i], arr[i + 1] = arr[i + 1], arr[i]
-    return None
+
 
 def adaptive_bubblesort(arr):
-    """
-    This version of bubble sort is significantly optimized.
+    """Adaptive version of bubble sort.
 
     At the begining of each pass we assume the rest of the list is sorted and
-    notes (in variable new_j) the position of the last swap.  All elements after
-    that position are sorted and do not need to be considered.
+    notes (in variable new_j) the position of the last swap.  All elements
+    after that position are sorted and do not need to be considered.
 
     This can significantly increase speed on data that is already or almost
     sorted.
@@ -118,14 +115,16 @@ def adaptive_bubblesort(arr):
 
     return None
 
+
 def simple_cocktailSort(arr):
-    """
+    """Simple cocktail shaker sort.
+
     This version of bubble sort works back and forth instead of always starting
     at the beginning.
 
-    It operates like shrinking_bubblesort and will only assume 1 elem sorted per
-    pass.  However, if no swaps are made it will stop sorting as the list is
-    sorted.
+    It operates like shrinking_bubblesort and will only assume 1 elem sorted
+    per pass.  However, if no swaps are made it will stop sorting as the list
+    is sorted.
 
     This is an in-place sort.
     """
@@ -134,18 +133,18 @@ def simple_cocktailSort(arr):
     beg = 0
     end = len(arr) - 1
 
-    while swapped==True:
+    while swapped:
         # Assume list is sorted until swap is made
         swapped = False
 
         # Loop over list from beginning to end, swap if necessary
-        for i in range (beg, end):
-            if arr[i] > arr[i + 1] :
+        for i in range(beg, end):
+            if arr[i] > arr[i + 1]:
                 arr[i], arr[i + 1] = arr[i + 1], arr[i]
-                swapped=True
+                swapped = True
 
         # If nothing moved, then array is sorted.
-        if swapped==False:
+        if not swapped:
             break
 
         # Assume list is sorted until swap is made
@@ -163,7 +162,6 @@ def simple_cocktailSort(arr):
         # Increase beg as we know one more element is sorted
         beg = beg + 1
 
-    return None
 
 def adaptive_cocktail(arr):
     """
@@ -181,9 +179,8 @@ def adaptive_cocktail(arr):
     This is an in-place sort.
     """
     # Set beginning and end
-    l = len(arr) - 1
     beg = 0
-    end = l
+    end = len(arr) - 1
 
     while beg < end:
         # Assume list is sorted until swap is made
@@ -200,7 +197,7 @@ def adaptive_cocktail(arr):
         if end <= beg:
             break
 
-        new_beg = l
+        new_beg = len(arr) - 1
         for i in range(end, beg, -1):
             if arr[i] < arr[i - 1]:
                 arr[i], arr[i - 1] = arr[i - 1], arr[i]
