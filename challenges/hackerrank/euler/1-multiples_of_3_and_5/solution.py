@@ -1,7 +1,7 @@
 """Solution for Project Euler #1: Multiples of 3 and 5.
 
 Found at: https://www.hackerrank.com/contests/projecteuler/challenges/euler001/submissions/code/1311804538
-"""  # noqa: E501
+"""  # noqa:
 
 
 def sum_val(limit, div):
