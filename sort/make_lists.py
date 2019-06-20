@@ -1,10 +1,33 @@
-from random import shuffle, sample, randint
-import lists
+import random
+
+
+def generate_list(length, style):
+    """Generate list of specific length and style."""
+    if style == "sorted":
+        return list(range(length))
+    elif style == "reverse":
+        return list(range(length))[::-1]
+    elif style == "random":
+        return make_random(length)
+    elif style == "almost":
+        pass
+    elif style == "similar":
+        return make_similar(length)
+
+
+def make_random(length, seed=1):
+    """Generate random list of specific length."""
+    temp_list = list(range(length))
+    random.seed(seed)
+    random.shuffle(temp_list)
+    return temp_list
+
 
 def make_close(arr):
-    """
+    """Generate a randomized list that is almost sorted.
+
     This function is entirely made up by me.  All of the numbers are guesses.
-    I have done some testing and it seems to perform as I want.d
+    I have done some testing and it seems to perform as I want.
 
     Right now it makes lists where about 20% of the numbers are not where they
     should be.  Those numbers are usually ~3 spots away from their sorted spot.
@@ -12,53 +35,37 @@ def make_close(arr):
     As lists get longer the max dist climbs as some number can be moved more
     than once.
 
-    This will fail freqently with small lists.  I recomend use where len >= 100
+    This will fail frequently with small lists.  I recommend use where len >= 100
     """
-
     temp = arr[:]
     rand_limit = 10
-    indx_limit = min(5, int(len(arr)**.5))
+    indx_limit = min(5, int(len(arr) ** 0.5))
 
     for i, elem in enumerate(temp):
         rand = randint(1, rand_limit)
-        if (rand == rand_limit):
+        if rand == rand_limit:
             diff = randint(1, indx_limit)
             try:
                 temp[i], temp[i + diff] = temp[i + diff], temp[i]
             except:
-                pass # if array is out of bounds just skip it.
+                pass  # if array is out of bounds just skip it.
     return temp
 
-def make_similar(num):
-    """
-    Generates a randomized list of many similar numbers (5 total number)
-    """
-    sim_list = [1, 2, 3, 4, 5] * (num//5)
-    shuffle(sim_list)
-    return sim_list
 
-def gen_lists(file, num):
-    """ Generates lists of differnt types and writes to temp file"""
+def make_similar(length, seed=1):
+    """Generate a randomized list of specified length where all numbers are 1 - 5."""
+    temp_list = [1, 2, 3, 4, 5] * (length // 5)
+    random.seed(seed)
+    random.shuffle(temp_list)
+    return temp_list
 
-    srt_list = list(range(num))  # Generates ordered list
-    rev_list = srt_list[::-1]  # Generates reversed list
-    sim_list = make_similar(num)
-    rnd_list = sample(srt_list, len(srt_list))  # Generates random list (without modifying original)
-    cls_list = make_close(srt_list)  # Generates mostly sorted list
-
-    with open(file, "w") as f:
-        f.write("srt_{} = {}\n".format(num, srt_list))
-        f.write("cls_{} = {}\n".format(num, cls_list))
-        f.write("sim_{} = {}\n".format(num, sim_list))
-        f.write("rnd_{} = {}\n".format(num, rnd_list))
-        f.write("rev_{} = {}\n".format(num, rev_list))
 
 def check_cls(arr):
-    """
+    """Check "Closely" randomized list.
+
     This function checks my close list generating function to see
     what kind of results I am getting.
     """
-
     num_off = 0
     off = []
 
@@ -69,13 +76,6 @@ def check_cls(arr):
 
     print("{} total numbers are out of place".format(num_off))
     print("{} is the largest gap between number and place".format(max(off)))
-    print("{:.1f} is the average distance a off number is off".format(sum(off)/len(off)))
-
-def main():
-    file = "list.txt"
-    num = 100000
-    gen_lists(file, num)
-
-
-if __name__ == '__main__':
-    main()
+    print(
+        "{:.1f} is the average distance a off number is off".format(sum(off) / len(off))
+    )
