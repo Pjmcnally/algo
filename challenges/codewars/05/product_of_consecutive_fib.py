@@ -1,9 +1,9 @@
-"""Code for Product of consecutive Fib numbers on Codewars.com.
+"""Solution for Codewars problem.
 
-https://www.codewars.com/kata/product-of-consecutive-fib-numbers/python
+Kyu: 5
+Name: Product of consecutive Fib numbers
+Link: https://www.codewars.com/kata/5541f58a944b85ce6d00006a
 """
-
-import test
 
 FIB = {"max": 1, 0: 0, 1: 1}
 
@@ -47,6 +47,13 @@ def fib_recursive(n):
 
     return FIB[n]
 
+
+# Tests below this line
+# ==============================================================================
+import os, sys  # noqa: E401, E402
+
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+import codewarstest as test  # noqa: E402, pylint: disable=E0401
 
 test.assert_equals(productFib(4895), [55, 89, True])
 test.assert_equals(productFib(5895), [89, 144, False])

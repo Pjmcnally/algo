@@ -36,14 +36,20 @@ def build_nums(a, b):
     return count
 
 
-import codewarstest as test
-test.describe('Example Tests')
-test.assert_equals(build_nums('0', '10'), 3)
-test.assert_equals(build_nums('10', '100'), 4)
-test.assert_equals(build_nums('100', '1000'), 12)
-test.assert_equals(build_nums('1000', '10000'), 20)
-test.assert_equals(build_nums('10000', '100000'), 60)
-test.assert_equals(build_nums('100000', '1000000'), 100)
-test.assert_equals(build_nums('1000000', '10000000'), 300)
-test.assert_equals(build_nums('10000000', '100000000'), 500)
-test.assert_equals(build_nums('100000000', '1000000000'), 1500)
+# Tests below this line
+# ==============================================================================
+import os, sys  # noqa: E401, E402
+
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+import codewarstest as test  # noqa: E402, pylint: disable=E0401
+
+test.describe("Example Tests")
+test.assert_equals(build_nums("0", "10"), 3)
+test.assert_equals(build_nums("10", "100"), 4)
+test.assert_equals(build_nums("100", "1000"), 12)
+test.assert_equals(build_nums("1000", "10000"), 20)
+test.assert_equals(build_nums("10000", "100000"), 60)
+test.assert_equals(build_nums("100000", "1000000"), 100)
+test.assert_equals(build_nums("1000000", "10000000"), 300)
+test.assert_equals(build_nums("10000000", "100000000"), 500)
+test.assert_equals(build_nums("100000000", "1000000000"), 1500)

@@ -1,4 +1,9 @@
-"""Answer to https://www.codewars.com/kata/59901cd68fc658ab6c000025/."""
+"""Solution for Codewars problem.
+
+Kyu: 7
+Name: Distributing Candies Fairly
+Link: https://www.codewars.com/kata/59901cd68fc658ab6c000025
+"""
 
 
 def distribute(m, n):
@@ -58,7 +63,10 @@ def distribute(m, n):
 
 # Tests below this line
 # ==============================================================================
-import codewarstest as Test  # noqa: E402, pylint: disable=C0413
+import os, sys  # noqa: E401, E402
+
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+import codewarstest as Test  # noqa: E402, pylint: disable=E0401
 
 Test.assert_equals(sorted(distribute(-5, 10)), [0, 0, 0, 0, 0, 0, 0, 0, 0, 1])
 Test.assert_equals(sorted(distribute(0, 10)), [0, 0, 0, 0, 0, 0, 0, 0, 0, 0])

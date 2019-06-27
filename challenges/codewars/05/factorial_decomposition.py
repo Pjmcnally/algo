@@ -1,4 +1,13 @@
+"""Solution for Codewars problem.
+
+Kyu: 5
+Name: Factorial decomposition
+Link: https://www.codewars.com/kata/5a045fee46d843effa000070
+"""
+
+
 def decomp(n):
+    """Find all prime factors of stated factorial."""
     # Calculate all needed primes once to save time
     # We only need the primes up to the square root of the original number.
     primes = primes_less_than(int(n ** 0.5))

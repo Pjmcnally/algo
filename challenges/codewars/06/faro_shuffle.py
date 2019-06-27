@@ -1,12 +1,16 @@
-def shuffle(arr):
-    t_list = []
-    for elem in zip(arr[:len(arr) // 2], arr[len(arr) // 2:]):
-        t_list.extend(elem)
+"""Solution for Codewars problem.
 
-    return t_list
+Kyu: 6
+Name: Faro Shuffle Count
+Link: https://www.codewars.com/kata/57bc802c615f0ba1e3000029
+
+I am pretty sure there is a mathematical solution to this
+problem but I cant see the pattern.
+"""
 
 
-def test(num):
+def faro_cycles(num):
+    """Count required faro shuffles."""
     test_list = list(range(1, num + 1))
     ref_list = test_list[:]
 
@@ -18,10 +22,10 @@ def test(num):
             return shuffle_count
 
 
-def main():
-    for x in range(2, 101, 2):
-        print("{} requires {} shuffles.".format(x, test(x)))
+def shuffle(arr):
+    """Faro shuffle arbitrary list."""
+    t_list = []
+    for elem in zip(arr[: len(arr) // 2], arr[len(arr) // 2 :]):
+        t_list.extend(elem)
 
-
-if __name__ == '__main__':
-    main()
+    return t_list

@@ -1,6 +1,8 @@
-"""Code for The Lift on Codewars.com.
+"""Solution for Codewars problem.
 
-https://www.codewars.com/kata/the-lift
+Kyu: 3
+Name: The Lift
+Link: https://www.codewars.com/kata/58905bfa1decb981da00009e
 """
 import operator
 
@@ -54,9 +56,11 @@ class Dinglemouse(object):
         temp_list = []
 
         for person in self.queues[self.floor]:
-            if (len(self.occupants) < self.capacity  # If there is room
-                    # and someone going the direction of the lift.
-                    and self.DIR_FUNC[self.direction](person, self.floor)):
+            if (
+                len(self.occupants) < self.capacity  # If there is room
+                # and someone going the direction of the lift.
+                and self.DIR_FUNC[self.direction](person, self.floor)
+            ):
                 self.occupants.append(person)
                 self.stops.add(person)
             else:
@@ -95,13 +99,16 @@ class Dinglemouse(object):
 
 # Tests below this line
 # ==============================================================================
-import codewarstest  # noqa: E402, pylint: disable=C0413
+import os, sys  # noqa: E401, E402
+
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+import codewarstest  # noqa: E402, pylint: disable=E0401
 
 tests = [
     [((), (), (5, 5, 5), (), (), (), ()), [0, 2, 5, 0]],
     [((), (), (1, 1), (), (), (), ()), [0, 2, 1, 0]],
-    [((), (3, ), (4, ), (), (5, ), (), ()), [0, 1, 2, 3, 4, 5, 0]],
-    [((), (0, ), (), (), (2, ), (3, ), ()), [0, 5, 4, 3, 2, 1, 0]],
+    [((), (3,), (4,), (), (5,), (), ()), [0, 1, 2, 3, 4, 5, 0]],
+    [((), (0,), (), (), (2,), (3,), ()), [0, 5, 4, 3, 2, 1, 0]],
 ]
 
 for queues, answer in tests:
