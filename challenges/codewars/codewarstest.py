@@ -25,3 +25,8 @@ def assert_equals(val, result, default_message=""):
 def describe(message):
     """Implement describe func."""
     print(message)
+
+
+def it(message):
+    """Implement it func."""
+    print(message)
