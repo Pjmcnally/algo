@@ -1,0 +1,3 @@
+How many 11 digit numbers contain at least three 3's?
+
+Also, for each x digit number how many numbers contain at least three 3's.
