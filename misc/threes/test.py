@@ -19,9 +19,11 @@ def test_for_three_threes_mod(num):
     while (num > 0):
         if (num % 10) == 3:
             three_count += 1
+            if three_count >= 3:
+                return True
         num //= 10
 
-    return three_count >= 3
+    return False
 
 def main():
     # Parse Args
