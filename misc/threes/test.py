@@ -3,7 +3,7 @@ import datetime
 
 def count_triple_threes(start, stop):
     count = 0
-    for num in range(start, stop):
+    for num in range(start, stop, 2):
         if (test_for_three_threes_mod(num)):
             count += 1
 
